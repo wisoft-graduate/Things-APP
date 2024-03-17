@@ -1,3 +1,22 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "jsx": "react-native",
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "paths": {
+      "@/*": ["./src"],
+      "@api/*": ["api/*"],
+      "@screens/*": ["screens/*"],
+      "@components/*": ["components/*"],
+      "@common/*": ["@common/*"],
+      "@public/*": ["public/*"],
+      "@assets/*": ["assets/*"],
+      "@zustand/*": ["zustand/*"],
+      "@storage/*": ["storage/*"]
+    }
+  }
 }
