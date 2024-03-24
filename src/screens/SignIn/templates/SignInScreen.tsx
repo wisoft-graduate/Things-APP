@@ -9,7 +9,7 @@ import CloseButton from '../../../@common/components/CloseButton'
 
 function SignInScreen(props) {
   const { bottomSheetModalRef } = props
-  const navigation = useNavigation()
+  const { push } = useNavigation()
 
   const snapPoints = useMemo(() => ['70%'], [])
 
@@ -34,6 +34,8 @@ function SignInScreen(props) {
               text={'로그인'}
               func={() => {
                 bottomSheetModalRef.current?.dismiss()
+
+                push('BottomTabNavigator', { screen: 'Home' })
               }}
             />
           </View>

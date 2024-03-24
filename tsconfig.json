@@ -10,7 +10,7 @@
     "paths": {
       "@/*": ["./src"],
       "@api/*": ["api/*"],
-      "@screens/*": ["screens/*"],
+      // "@screens/*": ["screens/*"],
       "@components/*": ["components/*"],
       "@common/*": ["@common/*"],
       "@public/*": ["public/*"],

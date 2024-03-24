@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer, createNavigationContainerRef } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-// import BottomTabNavigator from './bottomTabs'
+import BottomTabNavigator from './bottomTabs'
 import { RootStackParamList } from './types'
 import SignHomeScreen from '../screens/SignIn'
 import SignUpScreen from '../screens/SignIn/templates/SignUpScreen'
@@ -19,7 +19,7 @@ function RootNavigator() {
         headerShadowVisible: false,
       }}
       initialRouteName={'SignHome'}>
-      {/* <Root.Screen name="BottomTabNavigator" component={BottomTabNavigator} /> */}
+      <Root.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       {/* <Root.Screen name="Error" component={ErrorScreen} /> */}
       <Root.Screen name="SignHome" component={SignHomeScreen} />
       <Root.Screen name="SignUp" component={SignUpScreen} />
