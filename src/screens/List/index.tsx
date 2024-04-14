@@ -1,13 +1,44 @@
-import React from 'react'
-import { SafeAreaView, StatusBar, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+
+import SearchTextInputComp from '../../@common/components/SearchTextInputComp'
+import CardComp from './components/CardComp'
+import AddCardComp from './components/AddCardComp'
 
 function ListScreen() {
-  return (
-    <SafeAreaView>
-      <StatusBar barStyle="dark-content" />
+  const [selectedTab, setSelectedTab] = useState<string>('조회 순')
 
-      <View>
-        <Text style={{ fontSize: 40 }}>ListScreen</Text>
+  return (
+    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+      <StatusBar barStyle="dark-content" />
+      <View style={{ paddingHorizontal: 20 }}>
+        <SearchTextInputComp />
+
+        <ScrollView>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 15,
+              gap: 15,
+              flexWrap: 'wrap',
+              marginBottom: 130,
+              justifyContent: 'center',
+            }}>
+            <AddCardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+            <CardComp />
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   )

@@ -20,6 +20,7 @@
     "@types/react-native-version-check": "^3.4.8",
     "axios": "^1.6.7",
     "date-fns": "^3.3.1",
+    "lodash-es": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-config": "^1.5.1",

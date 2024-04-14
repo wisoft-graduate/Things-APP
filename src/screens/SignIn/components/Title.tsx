@@ -13,10 +13,10 @@ function TitleComp() {
       <View
         style={{
           backgroundColor: Colors.green,
-          width: 103,
+          width: 102,
           height: 20,
           position: 'absolute',
-          top: 30,
+          top: 46,
           left: -4,
         }}
       />

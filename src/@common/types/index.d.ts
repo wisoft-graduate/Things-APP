@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 export type TextInputCheckType = '' | 'error' | 'check'
 
 export interface ButtonCompProps {
@@ -9,6 +11,8 @@ export interface ButtonCompProps {
 export interface TextInputCompProps {
   placeholder: string
   check?: TextInputCheckType
+  value: string
+  setValue: Dispatch<SetStateAction<string>>
 }
 
 export interface CloseButtonProps {

@@ -5,9 +5,9 @@ import Icons from 'react-native-vector-icons/Octicons'
 import { BottomTabParamList } from 'navigation/types'
 import { Colors } from '../../@common/styles/colors'
 import ListScreen from '../../screens/List'
-import MyScreen from '../../screens/Mypage'
 import HomeNavigator from '../../navigation/stacks/homeStack'
 import SearchNavigator from '../../navigation/stacks/searchStack'
+import UserNavigator from '../../navigation/stacks/userStack'
 
 function BottomTabNavigator() {
   const BottomTab = createBottomTabNavigator<BottomTabParamList>()
@@ -16,7 +16,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName={'Home'}
       screenOptions={{
-        tabBarLabelStyle: { color: 'white', marginTop: -6, marginBottom: 4 },
+        tabBarLabelStyle: { color: 'white', marginTop: -6 },
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
@@ -52,7 +52,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name={'My'}
-        component={MyScreen}
+        component={UserNavigator}
         options={{
           tabBarLabel: 'My',
           tabBarIcon: ({ focused }) => <Icons size={20} name="person" color={focused ? Colors.green : Colors.white} />,

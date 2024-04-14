@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { SafeAreaView, ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import Icons from 'react-native-vector-icons/Octicons'
-import IonIcons from 'react-native-vector-icons/Ionicons'
+
 import CardComp from './components/CardComp'
+import SearchTextInputComp from '../../@common/components/SearchTextInputComp'
 
 const tabList = ['조회 순', '좋아요 순', '공유 순']
 
@@ -13,20 +13,7 @@ function SearchScreen() {
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <StatusBar barStyle="dark-content" />
       <View style={{ paddingHorizontal: 20 }}>
-        <View
-          style={{
-            marginTop: 20,
-            flexDirection: 'row',
-            backgroundColor: '#DDDDDD',
-            height: 35,
-            borderRadius: 10,
-            paddingHorizontal: 20,
-            alignItems: 'center',
-            gap: 4,
-          }}>
-          <Icons name="search" size={16} color={'#8E8E93'} />
-          <TextInput style={{ width: '100%' }} placeholder="저자, 명언으로 검색.." placeholderTextColor={'#767676'} />
-        </View>
+        <SearchTextInputComp />
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginTop: 26 }}>
           {tabList.map(item => {
             return (

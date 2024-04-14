@@ -6,8 +6,7 @@ import { Colors } from '../styles/colors'
 import { TextInputCompProps } from '../types'
 
 function TextInputComp(props: TextInputCompProps) {
-  const { placeholder, check } = props
-  const [value, setValue] = useState<string>('')
+  const { placeholder, check, value, setValue } = props
 
   const inputStyle = () => {
     switch (check) {
