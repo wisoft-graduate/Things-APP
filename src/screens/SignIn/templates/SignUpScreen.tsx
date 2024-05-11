@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { SafeAreaView, ScrollView, Text, View } from 'react-native'
+import axios from 'axios'
+import { useNavigation } from '@react-navigation/native'
+
 import TitleComp from '../components/Title'
 import TextInputComp from '../../../@common/components/TextInputComp'
 import ButtonComp from '../../../@common/components/ButtonComp'
-import { useNavigation } from '@react-navigation/native'
 import { Colors } from '../../../@common/styles/colors'
+import * as ThingsAPI from '../../../api/index'
+import PasswordQuestionComp from '../../../@common/components/PasswordQuestionComp'
 
 function SignUpScreen() {
   const navigation = useNavigation()
@@ -14,6 +18,29 @@ function SignUpScreen() {
   const [passwordValue, setPasswordValue] = useState('')
   const [passwordCheckValue, setPasswordCheckValue] = useState('')
   const [selfCheckValue, setSelfCheckValue] = useState('')
+
+  async function onSignup() {
+    const params = {
+      id: 'jiyeon',
+      password: 'jiyeon22',
+      nickname: 'jiyeon22',
+      identityVerificationQuestion: '난 누구인가',
+      identityVerificationAnswer: '박지연',
+    }
+    try {
+      const response = await axios.get('http://52.79.229.237:8080/users?nickname=jiyeon')
+      if (response) {
+        console.log('res', response)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    const res = await ThingsAPI.postSignUp({ params })
+    if (res) {
+      console.log(res)
+    }
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -36,23 +63,14 @@ function SignUpScreen() {
             </View>
             <TextInputComp placeholder="비밀번호..." value={passwordValue} setValue={setPasswordValue} />
             <TextInputComp placeholder="비밀번호 확인..." value={passwordCheckValue} setValue={setPasswordCheckValue} />
-            <View
-              style={{
-                borderWidth: 1,
-                borderRadius: 50,
-                padding: 20,
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                borderColor: '#DDDDDD',
-              }}>
-              <Text style={{ fontSize: 14, color: 'gray' }}>본인 확인 질문 선택...</Text>
-            </View>
+            <PasswordQuestionComp />
             <TextInputComp placeholder="본인 확인 답변 입력..." value={selfCheckValue} setValue={setSelfCheckValue} />
           </View>
         </ScrollView>
         <ButtonComp
           // @ts-ignore
-          func={() => navigation.push('SignHome')}
+          // func={() => navigation.push('SignHome')}
+          func={() => onSignup()}
           text={'확인'}
         />
       </View>

@@ -24,7 +24,7 @@ function RootNavigator() {
       {/* <Root.Screen name="Error" component={ErrorScreen} /> */}
       <Root.Screen name="SignHome" component={SignHomeScreen} />
       <Root.Screen name="SignUp" component={SignUpScreen} />
-      <Root.Screen name="Comments" component={CommentsScreen} options={{ presentation: 'modal' }} />
+      <Root.Screen name="Comments" component={CommentsScreen} />
     </Root.Navigator>
   )
 }

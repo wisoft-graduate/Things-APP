@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 
 function fetchAxios() {
   const instance = axios.create({
-    baseURL: 'https://v',
+    baseURL: 'http://52.79.229.237:8080',
     timeout: 1000 * 30,
     headers: {
       Accept: 'application/json',

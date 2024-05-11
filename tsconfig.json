@@ -8,15 +8,7 @@
     "resolveJsonModule": true,
     "noImplicitAny": false,
     "paths": {
-      "@/*": ["./src"],
-      "@api/*": ["api/*"],
-      // "@screens/*": ["screens/*"],
-      "@components/*": ["components/*"],
-      "@common/*": ["@common/*"],
-      "@public/*": ["public/*"],
-      "@assets/*": ["assets/*"],
-      "@zustand/*": ["zustand/*"],
-      "@storage/*": ["storage/*"]
+      "@/*": ["./src"]
     }
   }
 }

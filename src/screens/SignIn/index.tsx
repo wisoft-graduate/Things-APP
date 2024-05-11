@@ -7,6 +7,20 @@ import ButtonComp from '../../@common/components/ButtonComp'
 import { Colors } from '../../@common/styles/colors'
 import SignInScreen from './templates/SignInScreen'
 
+// ### ID
+// 길이: 5~20
+// 허용 문자: 소문자 알파벳, 숫자
+
+// ### Password
+// 길이: 8~16
+// 허용 문자: 소문자 알파벳, 대문자 알파벳, 숫자, 특수기호(!@#$)
+// 필수 조건: 소문자 알파벳 + 숫자를 포함하는 조합 형태
+
+// ### Nickname
+// 길이: 3~20
+// 허용 문자: 소문자 알파벳, 대문자 알파벳, 숫자, 특수기호(-,_), 한글
+// 제한 조건: leaved_ 로 시작하는 문자 형태 금지
+
 function SignHomeScreen() {
   const navigation = useNavigation()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)

@@ -21,7 +21,12 @@ function CommentsScreen({ bottomSheetModalRef }) {
         <View style={{ alignItems: 'center' }}>
           <Text>댓글</Text>
         </View>
-        <CommentComp />
+        <View style={{ paddingHorizontal: 20, paddingVertical: 30, gap: 24 }}>
+          <CommentComp />
+          <CommentComp />
+          <CommentComp />
+          <CommentComp />
+        </View>
       </BottomSheetView>
     </BottomSheetModal>
   )

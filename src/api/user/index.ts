@@ -9,24 +9,21 @@ import {
   PutUserWalletParams,
   PutUserWalletResponse,
 } from './types'
-import thingsAxios from '@api/thingsAxios'
+import thingsAxios from '../../api/thingsAxios'
 
 /**
  * @description PUT: 유저 지갑 정보 생성
- * @see http://52.79.223.147:8081/swagger-ui/index.html?urls.primaryName=user#/user-wallet-controller/createUserWallet
  */
 export async function postSignUp(params: PostUserWalletParams) {
-  const { walletPlatform, walletAddress } = params
   try {
-    const response = await thingsAxios.post<PostUserWalletResponse>(`/user/wallet`, {
-      walletPlatform,
-      walletAddress,
-    })
+    console.log('asdfss')
+    const response = await thingsAxios.post<PostUserWalletResponse>(`/users`, params)
+    console.log(response)
     const data = _.get(response, ['data', 'walletAddress'])
     const reasonPhrase = _.get(response, ['data', 'message', 'reasonPhrase'])
     return { data, reasonPhrase }
   } catch (error) {
-    console.error('@common > api > user > wallet > postUserWallet\n', error)
+    console.error('@common > api > user > postSignUp\n', error)
   }
 }
 

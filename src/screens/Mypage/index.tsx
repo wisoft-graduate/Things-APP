@@ -1,11 +1,12 @@
 import React from 'react'
-import { Dimensions, Image, SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native'
+import { Dimensions, Image, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Fontisto'
 import SetIcons from 'react-native-vector-icons/AntDesign'
 import PenIcons from 'react-native-vector-icons/Octicons'
+import { useNavigation } from '@react-navigation/native'
+
 import { Colors } from '../../@common/styles/colors'
 import TagButton from './components/TagButton'
-import { useNavigation } from '@react-navigation/native'
 
 const { width } = Dimensions.get('window')
 
@@ -23,7 +24,11 @@ function MyScreen() {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push('ProfileEdit')
+          }}
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Text style={{ fontSize: 22, fontWeight: '500' }}>nickname</Text>
           <View
             style={{
@@ -36,11 +41,21 @@ function MyScreen() {
             }}>
             <PenIcons name="pencil" size={12} />
           </View>
-        </View>
+        </TouchableOpacity>
 
         <View style={{ flexDirection: 'row', gap: 20, alignItems: 'center' }}>
-          <Icons name="bell" size={20} />
-          <SetIcons name="setting" size={22} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.push('Push')
+            }}>
+            <Icons name="bell" size={20} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.push('Setting')
+            }}>
+            <SetIcons name="setting" size={22} />
+          </TouchableOpacity>
         </View>
       </View>
 
