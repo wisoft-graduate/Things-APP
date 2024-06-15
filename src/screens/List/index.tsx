@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 
 import SearchTextInputComp from '../../@common/components/SearchTextInputComp'

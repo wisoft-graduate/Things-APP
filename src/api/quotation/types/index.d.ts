@@ -1,8 +1,8 @@
 import { BaseAPIResponseSchema } from '@api/thingsAxios'
 
 /** @description API Response 인터페이스 */
-export interface getUserIdMyPage extends BaseAPIResponseSchema {
-  data: UserIdMyPageData
+export interface GetUserWalletResponse extends BaseAPIResponseSchema {
+  data: UserWalletData
 }
 
 export interface PostSignInResponse extends BaseAPIResponseSchema {
@@ -16,16 +16,17 @@ export interface DeleteUserWalletResponse extends BaseAPIResponseSchema {}
 export interface PutUserWalletResponse extends BaseAPIResponseSchema {}
 
 /** @description Response 내 data 객체 타입 */
-export interface UserIdMyPageData {
-  bookmarkCount: number
-  commentAlarm: boolean
-  favoriteAuthor: null | string
-  favoriteQuotation: null | string
-  id: string
-  likeQuotationCount: number
-  nickname: string
-  profile: null | string
-  quotationAlarm: boolean
+export interface UserWalletData {
+  userSeq: number
+  userEmail: string
+  walletList: {
+    METAMASK: {
+      walletAddress: string
+      createTime: string
+      updateTime: string
+      userWalletId: number
+    }
+  }
 }
 
 export interface PostSignInData {

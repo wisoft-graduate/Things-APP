@@ -1,24 +1,20 @@
 import _ from 'lodash-es'
 
 import {
-  DeleteUserWalletParams,
-  DeleteUserWalletResponse,
   GetUserWalletResponse,
-  PostUserWalletParams,
+  PostSignInParams,
+  PostSignInResponse,
+  PostSignUpParams,
   PostUserWalletResponse,
-  PutUserWalletParams,
-  PutUserWalletResponse,
 } from './types'
 import thingsAxios from '../../api/thingsAxios'
 
 /**
- * @description PUT: 유저 지갑 정보 생성
+ * @description POST: 회원가입
  */
-export async function postSignUp(params: PostUserWalletParams) {
+export async function postSignUp(params: PostSignUpParams) {
   try {
-    console.log('asdfss')
     const response = await thingsAxios.post<PostUserWalletResponse>(`/users`, params)
-    console.log(response)
     const data = _.get(response, ['data', 'walletAddress'])
     const reasonPhrase = _.get(response, ['data', 'message', 'reasonPhrase'])
     return { data, reasonPhrase }
@@ -28,52 +24,40 @@ export async function postSignUp(params: PostUserWalletParams) {
 }
 
 /**
- * @description GET: 유저 지갑 정보 생성
- * @see http://52.79.223.147:8081/swagger-ui/index.html?urls.primaryName=user#/user-wallet-controller/readUserWallet
+ * @description POST: 로그인
  */
-export async function getUserWallet() {
+export async function postSignIn(params: PostSignInParams) {
   try {
-    const response = await thingsAxios.get<GetUserWalletResponse>(`/user/wallet`)
+    const response = await thingsAxios.post<PostSignInResponse>(`/users/sign-in`, params)
     const data = _.get(response, ['data', 'data'])
-    const reasonPhrase = _.get(response, ['data', 'message', 'reasonPhrase'])
-    return { data, reasonPhrase }
+    return { data }
   } catch (error) {
-    console.error('@common > api > user > wallet > getUserWallet\n', error)
+    console.error('@common > api > user > postSignIn\n', error)
   }
 }
 
 /**
- * @description PUT: 유저 지갑 정보 수정
- * @see http://52.79.223.147:8081/swagger-ui/index.html?urls.primaryName=user#/user-wallet-controller/userWallet
+ * @description GET: 유저 정보
  */
-export async function putUserWallet(params: PutUserWalletParams) {
-  const { userWalletId, walletAddress } = params
+export async function getUserId({ id }) {
   try {
-    const response = await thingsAxios.put<PutUserWalletResponse>(`/user/wallet`, {
-      userWalletId,
-      walletAddress,
-    })
+    const response = await thingsAxios.get<GetUserWalletResponse>(`/users/${id}`)
     const data = _.get(response, ['data', 'data'])
-    const reasonPhrase = _.get(response, ['data', 'message', 'reasonPhrase'])
-    return { data, reasonPhrase }
+    return { data }
   } catch (error) {
-    console.error('@common > api > user > wallet > putUserWallet\n', error)
+    console.error('@common > api > user > getUserId\n', error)
   }
 }
 
 /**
- * @description DELETE: 유저 지갑 정보 삭제
- * @see http://52.79.223.147:8081/swagger-ui/index.html?urls.primaryName=user#/user-wallet-controller/userWallet_1
+ * @description GET: 유저 정보
  */
-export async function deleteUserWallet(params: DeleteUserWalletParams) {
-  const { userWalletId } = params
+export async function getUserIdMyPage({ id }) {
   try {
-    const response = await thingsAxios.delete<DeleteUserWalletResponse>(`/user/wallet`, {
-      data: { userWalletId },
-    })
-    const reasonPhrase = _.get(response, ['data', 'message', 'reasonPhrase'])
-    return { reasonPhrase }
+    const response = await thingsAxios.get<GetUserWalletResponse>(`/users/${id}/my-page`)
+    const data = _.get(response, ['data', 'data'])
+    return { data }
   } catch (error) {
-    console.error('@common > api > user > wallet > deleteUserWallet\n', error)
+    console.error('@common > api > user > getUserIdMyPage\n', error)
   }
 }

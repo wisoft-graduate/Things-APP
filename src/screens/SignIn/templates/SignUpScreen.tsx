@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { SafeAreaView, ScrollView, Text, View } from 'react-native'
-import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
 
 import TitleComp from '../components/Title'
@@ -21,24 +20,28 @@ function SignUpScreen() {
 
   async function onSignup() {
     const params = {
-      id: 'jiyeon',
+      id: 'jiyeon2',
       password: 'jiyeon22',
-      nickname: 'jiyeon22',
+      nickname: 'jiyeon2',
       identityVerificationQuestion: '난 누구인가',
       identityVerificationAnswer: '박지연',
     }
+    // try {
+    //   const response = await axios.get('http://52.79.229.237:8080/users?searchNickname=jiyeon')
+    //   if (response) {
+    //     console.log('res', response)
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    // }
+
     try {
-      const response = await axios.get('http://52.79.229.237:8080/users?nickname=jiyeon')
-      if (response) {
-        console.log('res', response)
+      const res = await ThingsAPI.postSignUp(params)
+      if (res) {
+        console.log(res)
       }
     } catch (error) {
       console.log(error)
-    }
-
-    const res = await ThingsAPI.postSignUp({ params })
-    if (res) {
-      console.log(res)
     }
   }
 

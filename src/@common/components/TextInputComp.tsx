@@ -33,6 +33,7 @@ function TextInputComp(props: TextInputCompProps) {
   return (
     <View style={[styles.container, inputStyle()]}>
       <TextInput
+        autoCapitalize="none"
         value={value}
         onChange={event => setValue(event.nativeEvent.text)}
         placeholder={placeholder}

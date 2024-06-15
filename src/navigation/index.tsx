@@ -19,7 +19,7 @@ function RootNavigator() {
         headerShown: false,
         headerShadowVisible: false,
       }}
-      initialRouteName={'SignHome'}>
+      initialRouteName={'BottomTabNavigator'}>
       <Root.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       {/* <Root.Screen name="Error" component={ErrorScreen} /> */}
       <Root.Screen name="SignHome" component={SignHomeScreen} />

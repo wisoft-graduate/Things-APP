@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StatusBar, Text, View } from 'react-native'
+import * as ThingsAPI from '../../api/index'
+import DetailScreen from '../../screens/Detail'
 
 function HomeScreen() {
   return (

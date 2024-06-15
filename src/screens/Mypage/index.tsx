@@ -1,17 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Fontisto'
 import SetIcons from 'react-native-vector-icons/AntDesign'
 import PenIcons from 'react-native-vector-icons/Octicons'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 
 import { Colors } from '../../@common/styles/colors'
 import TagButton from './components/TagButton'
+import { userIdStorage } from '../../storage/secure'
+import * as ThingsAPI from '../../api'
+import { UserIdMyPageData } from 'api/user/types'
 
 const { width } = Dimensions.get('window')
 
 function MyScreen() {
   const navigation = useNavigation()
+  const isFocused = useIsFocused()
+  const [userData, setUserData] = useState<UserIdMyPageData>()
+
+  async function getUser() {
+    const userId = await userIdStorage.get()
+
+    async function fetchUserInfo() {
+      const response = await ThingsAPI.getUserIdMyPage({ id: userId })
+      if (response) {
+        setUserData(response.data)
+      }
+    }
+
+    if (userId) {
+      fetchUserInfo()
+    } else {
+      navigation.navigate('SignHome')
+    }
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [isFocused])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -29,7 +55,7 @@ function MyScreen() {
             navigation.push('ProfileEdit')
           }}
           style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-          <Text style={{ fontSize: 22, fontWeight: '500' }}>nickname</Text>
+          <Text style={{ fontSize: 22, fontWeight: '500' }}>{userData?.nickname}</Text>
           <View
             style={{
               width: 22,
@@ -63,23 +89,23 @@ function MyScreen() {
         <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 50, alignItems: 'center', marginTop: 30 }}>
           <View style={{ backgroundColor: 'coral', width: 80, height: 80, borderRadius: 80 }} />
           <View style={{ alignItems: 'center', gap: 6 }}>
-            <Text style={{ fontSize: 16, fontWeight: '500', color: 'black' }}>154</Text>
+            <Text style={{ fontSize: 16, fontWeight: '500', color: 'black' }}>{userData?.likeQuotationCount ?? 0}</Text>
             <Text style={{ fontSize: 14, fontWeight: '400', color: 'black' }}>좋아요</Text>
           </View>
           <View style={{ alignItems: 'center', gap: 6 }}>
-            <Text style={{ fontSize: 16, fontWeight: '500', color: 'black' }}>32</Text>
+            <Text style={{ fontSize: 16, fontWeight: '500', color: 'black' }}>{userData?.bookmarkcount ?? 0}</Text>
             <Text style={{ fontSize: 14, fontWeight: '400', color: 'black' }}>북마크</Text>
           </View>
         </View>
         <View style={{ marginLeft: 35, gap: 12, marginTop: 40 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
             <Image style={{ width: 27, height: 25 }} source={require('../../assets/images/like_writer.png')} />
-            <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>윈스턴 처칠 Sir Winston churchil</Text>
+            <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>{userData?.favoriteAuthor ?? '-'}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
             <Image style={{ width: 27, height: 24 }} source={require('../../assets/images/like_quote.png')} />
             <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>
-              희망은 백일몽이다. - 아리스토텔레스 Aristotle
+              {userData?.favoriteQuotation ?? '-'}
             </Text>
           </View>
         </View>
