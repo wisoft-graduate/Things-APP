@@ -31,7 +31,6 @@
 		2EDCE6A72BA6B8F300FEF6CD /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDCE6942BA6B8F300FEF6CD /* SimpleLineIcons.ttf */; };
 		2EDCE6A82BA6B8F300FEF6CD /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDCE6952BA6B8F300FEF6CD /* FontAwesome6_Brands.ttf */; };
 		2EDCE6A92BA6B8F300FEF6CD /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDCE6962BA6B8F300FEF6CD /* MaterialIcons.ttf */; };
-		2EE37E1E2BDE7CB6000AE6AE /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 2EE37E1D2BDE7CB6000AE6AE /* main.jsbundle */; };
 		7699B88040F8A987B510C191 /* libPods-Things-ThingsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Things-ThingsTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -76,7 +75,6 @@
 		2EDCE6942BA6B8F300FEF6CD /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		2EDCE6952BA6B8F300FEF6CD /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
 		2EDCE6962BA6B8F300FEF6CD /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
-		2EE37E1D2BDE7CB6000AE6AE /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Things.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Things.debug.xcconfig"; path = "Target Support Files/Pods-Things/Pods-Things.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Things.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Things.release.xcconfig"; path = "Target Support Files/Pods-Things/Pods-Things.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Things-ThingsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Things-ThingsTests.debug.xcconfig"; path = "Target Support Files/Pods-Things-ThingsTests/Pods-Things-ThingsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				2EE37E1D2BDE7CB6000AE6AE /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* Things */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ThingsTests */,
@@ -329,7 +326,6 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				2EDCE69D2BA6B8F300FEF6CD /* MaterialCommunityIcons.ttf in Resources */,
 				2EDCE6A62BA6B8F300FEF6CD /* FontAwesome6_Solid.ttf in Resources */,
-				2EE37E1E2BDE7CB6000AE6AE /* main.jsbundle in Resources */,
 				2EDCE69A2BA6B8F300FEF6CD /* FontAwesome6_Regular.ttf in Resources */,
 				2EDCE6A92BA6B8F300FEF6CD /* MaterialIcons.ttf in Resources */,
 			);
@@ -669,10 +665,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -740,10 +733,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

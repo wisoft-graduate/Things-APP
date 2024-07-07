@@ -13,6 +13,7 @@ export type RootStackParamList = {
   Error: ErrorStackParamList
   Auth: AuthStackParamList
   NewsDetail: NewsDetailParamList
+  Comments: undefined
   SignHome: undefined
   SignUp: undefined
 }

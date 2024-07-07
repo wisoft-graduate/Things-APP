@@ -5,7 +5,7 @@ import Icons from 'react-native-vector-icons/Ionicons'
 import ChatIconSvg from '../../../assets/svgs/ChatIconSvg'
 import { useNavigation } from '@react-navigation/native'
 
-function ActionButtons({ handlePresentModalPress, item }) {
+function ActionButtons({ item }) {
   const navigation = useNavigation()
 
   const [isLike, setIsLike] = useState<boolean>(false)
@@ -27,8 +27,7 @@ function ActionButtons({ handlePresentModalPress, item }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          // navigation.navigate('Comments')
-          handlePresentModalPress()
+          navigation.navigate('Comments')
         }}
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}>
         <ChatIconSvg />

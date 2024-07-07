@@ -32,7 +32,8 @@ export async function postSignIn(params: PostSignInParams) {
     const data = _.get(response, ['data', 'data'])
     return { data }
   } catch (error) {
-    console.error('@common > api > user > postSignIn\n', error)
+    console.error('@common > api > user > postSignIn\n', error?.response)
+    return error?.response?.data
   }
 }
 

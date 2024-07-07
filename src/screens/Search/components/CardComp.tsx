@@ -1,16 +1,25 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 
-function CardComp() {
+const width = Dimensions.get('screen').width
+
+function CardComp({ item }) {
   const { push } = useNavigation()
+
   return (
     <TouchableOpacity
       onPress={() => {
-        push('Detail')
+        push('Detail', { params: item?.id })
       }}
-      style={{ backgroundColor: 'coral', width: '47%', height: 200, borderRadius: 20, padding: 10 }}>
+      style={{
+        backgroundColor: 'coral',
+        width: width / 2.3,
+        height: 200,
+        borderRadius: 20,
+        padding: 10,
+      }}>
       <View
         style={{
           backgroundColor: '#11111150',
@@ -20,7 +29,7 @@ function CardComp() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{ color: 'white', fontWeight: '700' }}>1</Text>
+        <Text style={{ color: 'white', fontWeight: '700' }}>{item?.rank}</Text>
       </View>
       <View
         style={{
@@ -30,10 +39,7 @@ function CardComp() {
           alignItems: 'flex-end',
           gap: 3,
         }}>
-        <View style={{ flexDirection: 'row', gap: 3, alignItems: 'center' }}>
-          <IonIcons name="eye" size={15} color={'white'} />
-          <Text style={{ fontSize: 10, color: 'white' }}>10.3 M</Text>
-        </View>
+        <Text style={{ fontSize: 14, color: 'white' }}>{item?.id}</Text>
       </View>
     </TouchableOpacity>
   )

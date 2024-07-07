@@ -20,8 +20,8 @@ function PasswordQuestionComp() {
             //   flexDirection: 'row',
             borderColor: '#DDDDDD',
           }}>
-          {passwordQuestions.map(item => {
-            return <Text>{item}</Text>
+          {passwordQuestions.map((item, index) => {
+            return <Text key={index}>{item}</Text>
           })}
         </View>
       </ScrollView>

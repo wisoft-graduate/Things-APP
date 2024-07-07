@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 
 import SearchTextInputComp from '../../@common/components/SearchTextInputComp'
 import CardComp from './components/CardComp'
@@ -13,7 +13,6 @@ function ListScreen() {
       <StatusBar barStyle="dark-content" />
       <View style={{ paddingHorizontal: 20 }}>
         <SearchTextInputComp />
-
         <ScrollView>
           <View
             style={{
@@ -25,7 +24,7 @@ function ListScreen() {
               justifyContent: 'center',
             }}>
             <AddCardComp />
-            <CardComp />
+
             <CardComp />
             <CardComp />
             <CardComp />

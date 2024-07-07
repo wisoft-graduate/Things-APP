@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Text, View } from 'react-native'
+import { Alert, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 
@@ -20,17 +20,16 @@ function SignInScreen(props) {
   const snapPoints = useMemo(() => ['70%'], [])
 
   async function onSignIn() {
-    try {
-      const res = await ThingsAPI.postSignIn({ id: idValue, password: passwordValue })
-      if (res?.data?.accessToken) {
-        setAxiosHeaders(res?.data?.accessToken)
-        await accessTokenStorage.set(res?.data?.accessToken)
-        await refreshTokenStorage.set(res?.data?.accessToken)
-        await userIdStorage.set(idValue)
-        push('BottomTabNavigator', { screen: 'Home' })
-      }
-    } catch (error) {
-      console.log(error)
+    const res = await ThingsAPI.postSignIn({ id: idValue, password: passwordValue })
+    if (res?.data?.accessToken) {
+      bottomSheetModalRef.current?.dismiss()
+      setAxiosHeaders(res?.data?.accessToken)
+      await accessTokenStorage.set(res?.data?.accessToken)
+      await refreshTokenStorage.set(res?.data?.accessToken)
+      await userIdStorage.set(idValue)
+      push('BottomTabNavigator', { screen: 'Home' })
+    } else {
+      Alert.alert(res?.data?.message, '', [{}])
     }
   }
 
@@ -54,7 +53,6 @@ function SignInScreen(props) {
             <ButtonComp
               text={'로그인'}
               func={() => {
-                bottomSheetModalRef.current?.dismiss()
                 onSignIn()
               }}
             />

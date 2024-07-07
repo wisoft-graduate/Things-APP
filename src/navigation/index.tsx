@@ -24,7 +24,17 @@ function RootNavigator() {
       {/* <Root.Screen name="Error" component={ErrorScreen} /> */}
       <Root.Screen name="SignHome" component={SignHomeScreen} />
       <Root.Screen name="SignUp" component={SignUpScreen} />
-      <Root.Screen name="Comments" component={CommentsScreen} />
+      <Root.Screen
+        name="Comments"
+        component={CommentsScreen}
+        options={{
+          headerShadowVisible: true,
+          headerShown: true,
+          headerBackTitleVisible: false,
+          headerTitle: '댓글',
+          headerTintColor: 'black',
+        }}
+      />
     </Root.Navigator>
   )
 }
