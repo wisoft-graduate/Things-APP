@@ -1,20 +1,10 @@
-import React from 'react'
-import { StatusBar } from 'react-native'
-import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { LogLevel, OneSignal } from 'react-native-onesignal'
-
 import { ONESIGNAL_ID } from '@env'
-import Navigator from './src/navigation'
-import useGetUserInfo from './src/@common/hooks/useGetUserInfo'
-import useOnesignal from './src/@common/hooks/useOnesignal'
 
-function App(): React.JSX.Element {
-  useGetUserInfo()
-
+function useOnesignal() {
   OneSignal.Debug.setLogLevel(LogLevel.Verbose)
 
-  // OneSignal Initialization  
+  // OneSignal Initialization
   OneSignal.initialize('e2b30e0b-bfae-4331-84c2-8198e50db553')
   console.log(ONESIGNAL_ID)
 
@@ -29,14 +19,6 @@ function App(): React.JSX.Element {
   OneSignal.Notifications.addEventListener('click', event => {
     console.log('OneSignal: notification clicked:', event)
   })
-
-  return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Navigator />
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
-  )
 }
 
-export default App
+export default useOnesignal

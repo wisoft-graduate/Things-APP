@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "379449458156",
+    "project_id": "things-353c1",
+    "storage_bucket": "things-353c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379449458156:android:ed0e79aa5e77606cffd4c9",
+        "android_client_info": {
+          "package_name": "com.freedobyz.things"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDfklnvp_MLIRpwWmIxr7lu73WNmFyfvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

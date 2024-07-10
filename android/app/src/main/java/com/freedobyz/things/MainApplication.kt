@@ -1,4 +1,4 @@
-package com.things
+package com.freedobyz.things
 
 import android.app.Application
 import com.facebook.react.PackageList
