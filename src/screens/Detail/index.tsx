@@ -19,7 +19,7 @@ function DetailScreen() {
   async function fetchQuotation() {
     const res = await ThingsAPI.getQuotation()
     if (res) {
-      setData(res?.data?.quotationList)
+      setData(res?.data)
       setIsNext(false)
       // push('BottomTabNavigator', { screen: 'Home' })
     }
@@ -63,7 +63,9 @@ function DetailScreen() {
               </Text>
             </View>
             <View style={{ marginHorizontal: 40, marginTop: 7, alignSelf: 'flex-end' }}>
-              <Text style={{ fontSize: 12, color: 'white', lineHeight: 20, fontWeight: '400' }}>- 에디슨 -</Text>
+              <Text style={{ fontSize: 12, color: 'white', lineHeight: 20, fontWeight: '400' }}>
+                - {item?.author?.name} -
+              </Text>
             </View>
             <View style={{ position: 'absolute', bottom: 35, right: 20, marginLeft: 20 }}>
               <ActionButtons item={item} />
