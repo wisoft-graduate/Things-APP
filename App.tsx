@@ -3,6 +3,7 @@ import { StatusBar } from 'react-native'
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { LogLevel, OneSignal } from 'react-native-onesignal'
+import { PaperProvider } from 'react-native-paper'
 
 import { ONESIGNAL_ID } from '@env'
 import Navigator from './src/navigation'
@@ -14,7 +15,7 @@ function App(): React.JSX.Element {
 
   OneSignal.Debug.setLogLevel(LogLevel.Verbose)
 
-  // OneSignal Initialization  
+  // OneSignal Initialization
   OneSignal.initialize('e2b30e0b-bfae-4331-84c2-8198e50db553')
   console.log(ONESIGNAL_ID)
 
@@ -31,11 +32,13 @@ function App(): React.JSX.Element {
   })
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Navigator />
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+    <PaperProvider>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Navigator />
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+    </PaperProvider>
   )
 }
 

@@ -4,12 +4,16 @@ import Icons from 'react-native-vector-icons/Ionicons'
 
 import ChatIconSvg from '../../../assets/svgs/ChatIconSvg'
 import { useNavigation } from '@react-navigation/native'
+import BookmarkModal from '../templates/BookmarkModal'
 
 function ActionButtons({ item }) {
   const navigation = useNavigation()
 
   const [isLike, setIsLike] = useState<boolean>(false)
   const [isBookmark, setIsBookmark] = useState<boolean>(false)
+  const [isShowBookmarkModal, setIsShowBookmarkModal] = useState(false)
+
+  const showModal = () => setIsShowBookmarkModal(true)
 
   function onShareNews() {
     Share.share({
@@ -19,6 +23,7 @@ function ActionButtons({ item }) {
 
   return (
     <View style={styles.container}>
+      <BookmarkModal isShowBookmarkModal={isShowBookmarkModal} setIsShowBookmarkModal={setIsShowBookmarkModal} />
       <TouchableOpacity
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}
         onPress={() => setIsLike(!isLike)}>
@@ -41,7 +46,10 @@ function ActionButtons({ item }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}
-        onPress={() => setIsBookmark(!isBookmark)}>
+        onPress={() => {
+          showModal()
+          setIsBookmark(!isBookmark)
+        }}>
         <Icons name="bookmark-outline" size={24} color={isBookmark ? 'red' : 'white'} />
       </TouchableOpacity>
     </View>
