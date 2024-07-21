@@ -5,10 +5,10 @@ import CardComp from './components/CardComp'
 import SearchTextInputComp from '../../@common/components/SearchTextInputComp'
 import * as ThingsAPI from '../../api/index'
 
-const tabList = ['조회 순', '좋아요 순', '공유 순']
+const tabList = ['좋아요 순', '공유 순']
 
 function SearchScreen() {
-  const [selectedTab, setSelectedTab] = useState<string>('조회 순')
+  const [selectedTab, setSelectedTab] = useState<string>('좋아요 순')
   const [data, setData] = useState([])
 
   async function fetchQuotation() {
@@ -46,6 +46,7 @@ function SearchScreen() {
             marginTop: 15,
             gap: 10,
             flexWrap: 'wrap',
+            justifyContent: 'center',
           }}
           data={data}
           renderItem={item => <CardComp item={item?.item} />}

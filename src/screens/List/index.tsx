@@ -6,7 +6,7 @@ import CardComp from './components/CardComp'
 import AddCardComp from './components/AddCardComp'
 
 function ListScreen() {
-  const [selectedTab, setSelectedTab] = useState<string>('조회 순')
+  const [selectedTab, setSelectedTab] = useState<string>('좋아요 순')
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>

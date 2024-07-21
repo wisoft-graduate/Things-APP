@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { Modal, Portal, Button, PaperProvider } from 'react-native-paper'
+import { Modal, Portal } from 'react-native-paper'
+import AddNewListModal from './AddNewListModal'
 
 function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal }) {
   const hideModal = () => setIsShowBookmarkModal(false)
+
+  const [isShowAddListModal, setIsShowAddListModal] = useState(false)
 
   function BookmarkItem() {
     return (
@@ -23,6 +26,11 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal }) {
 
   return (
     <View>
+      <AddNewListModal
+        isShowAddListModal={isShowAddListModal}
+        setIsShowAddListModal={setIsShowAddListModal}
+        setIsShowBookmarkModal={setIsShowBookmarkModal}
+      />
       <Portal>
         <Modal visible={isShowBookmarkModal} onDismiss={hideModal} contentContainerStyle={{ height: '60%' }}>
           <View
@@ -36,6 +44,10 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal }) {
             }}>
             <Text>리스트 추가</Text>
             <TouchableOpacity
+              onPress={() => {
+                setIsShowBookmarkModal(false)
+                setIsShowAddListModal(true)
+              }}
               style={{
                 backgroundColor: '#F3F3F3',
                 width: 280,
@@ -46,7 +58,8 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal }) {
               }}>
               <Text>새 리스트 생성</Text>
             </TouchableOpacity>
-            <ScrollView contentContainerStyle={{ gap: 16, flexDirection: 'row', flexWrap: 'wrap' }}>
+            <ScrollView
+              contentContainerStyle={{ gap: 16, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
               <BookmarkItem />
               <BookmarkItem />
               <BookmarkItem />

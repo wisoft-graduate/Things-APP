@@ -15,7 +15,7 @@ function CardComp({ item }) {
       }}
       style={{
         backgroundColor: 'coral',
-        width: width / 2.3,
+        width: width / 2.4,
         height: 200,
         borderRadius: 20,
         padding: 10,
