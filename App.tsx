@@ -11,9 +11,11 @@ import Navigator from './src/navigation'
 import useGetUserInfo from './src/@common/hooks/useGetUserInfo'
 import useOnesignal from './src/@common/hooks/useOnesignal'
 import { queryClient } from './src/api/react-query'
+import useTokenReissue from './src/@common/hooks/useTokenReissue'
 
 function App(): React.JSX.Element {
   useGetUserInfo()
+  useTokenReissue()
 
   OneSignal.Debug.setLogLevel(LogLevel.Verbose)
 

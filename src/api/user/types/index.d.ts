@@ -1,6 +1,7 @@
 import { BaseAPIResponseSchema } from '@api/thingsAxios'
 
 /** @description API Response 인터페이스 */
+export interface UserResponse extends BaseAPIResponseSchema {}
 export interface getUserIdMyPage extends BaseAPIResponseSchema {
   data: UserIdMyPageData
 }
@@ -8,12 +9,11 @@ export interface getUserIdMyPage extends BaseAPIResponseSchema {
 export interface PostSignInResponse extends BaseAPIResponseSchema {
   data: PostSignInData
 }
-
-export interface PostUserWalletResponse extends BaseAPIResponseSchema {}
-
-export interface DeleteUserWalletResponse extends BaseAPIResponseSchema {}
-
-export interface PutUserWalletResponse extends BaseAPIResponseSchema {}
+export interface PutUserResponse extends BaseAPIResponseSchema {
+  data: {
+    id: string
+  }
+}
 
 /** @description Response 내 data 객체 타입 */
 export interface UserIdMyPageData {
@@ -59,4 +59,15 @@ export interface PostSignUpParams {
 export interface PostSignInParams {
   id: string
   password: string
+}
+export interface PutUserParams {
+  id: string
+  nickname: string
+  profilePath: string
+  favoriteQuotation: string
+  favoriteAuthor: string
+  quotationAlarm: boolean
+  commentAlarm: boolean
+  identityVerificationQuestion: string
+  identityVerificationAnswer: string
 }

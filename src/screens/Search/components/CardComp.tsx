@@ -20,17 +20,19 @@ function CardComp({ item }) {
         borderRadius: 20,
         padding: 10,
       }}>
-      <View
-        style={{
-          backgroundColor: '#11111150',
-          borderRadius: 100,
-          width: 25,
-          height: 25,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text style={{ color: 'white', fontSize: 14, fontWeight: '700' }}>{item?.rank}</Text>
-      </View>
+      {item.rank && (
+        <View
+          style={{
+            backgroundColor: '#11111150',
+            borderRadius: 100,
+            width: 25,
+            height: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={{ color: 'white', fontSize: 14, fontWeight: '700' }}>{item?.rank}</Text>
+        </View>
+      )}
       <View
         style={{
           flex: 1,

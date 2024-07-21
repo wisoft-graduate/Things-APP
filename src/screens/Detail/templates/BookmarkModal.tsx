@@ -47,7 +47,7 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
           gap: 12,
         }}>
         <Text>{item.icon}</Text>
-        <Text>{item.name}</Text>
+        <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>{item.name}</Text>
       </TouchableOpacity>
     )
   }
@@ -70,7 +70,7 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
               alignItems: 'center',
               gap: 16,
             }}>
-            <Text>리스트 추가</Text>
+            <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>리스트 추가</Text>
             <TouchableOpacity
               onPress={() => {
                 setIsShowBookmarkModal(false)
@@ -84,7 +84,7 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
                 justifyContent: 'center',
                 borderRadius: 50,
               }}>
-              <Text>새 리스트 생성</Text>
+              <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>새 리스트 생성</Text>
             </TouchableOpacity>
             <ScrollView
               contentContainerStyle={{ gap: 16, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -113,7 +113,7 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
                 justifyContent: 'center',
                 borderRadius: 50,
               }}>
-              <Text>저장</Text>
+              <Text style={{ fontSize: 16, color: 'black', fontWeight: '500' }}>저장</Text>
             </TouchableOpacity>
           </View>
         </Modal>

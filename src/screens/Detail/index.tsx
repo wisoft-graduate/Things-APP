@@ -18,7 +18,11 @@ function DetailScreen() {
   const params = route?.params?.params
 
   async function fetchQuotation() {
-    const res = await ThingsAPI.getQuotation()
+    const params = {
+      page: 1,
+      count: 20,
+    }
+    const res = await ThingsAPI.getQuotation(params)
     if (res) {
       setData(res?.data)
       setIsNext(false)

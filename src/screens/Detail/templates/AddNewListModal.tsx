@@ -29,10 +29,9 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
               alignItems: 'center',
               gap: 16,
             }}>
-            <Text>새 리스트 생성</Text>
+            <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>새 리스트 생성</Text>
             <EmojiPicker
               onEmojiSelected={icon => {
-                console.log(icon)
                 setIcon(icon.emoji)
               }}
               open={isOpen}
@@ -52,7 +51,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                   justifyContent: 'center',
                   borderRadius: 50,
                 }}>
-                <Text>{icon}+</Text>
+                <Text>{icon === '' ? '+' : icon}</Text>
               </TouchableOpacity>
               <TextInput
                 style={{
@@ -70,7 +69,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
             </View>
             <View style={{ height: 1, backgroundColor: 'lightgray', width: '100%' }} />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
-              <Text>공개 여부</Text>
+              <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>공개 여부</Text>
               <View style={{ flexDirection: 'row', gap: 16 }}>
                 <TouchableOpacity
                   onPress={() => {
@@ -85,7 +84,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                     borderColor: isSelectedShow ? Colors.green : '#ddd',
                     backgroundColor: isSelectedShow ? '#CBF14740' : 'transparent',
                   }}>
-                  <Text>공개</Text>
+                  <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>공개</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
@@ -100,7 +99,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                     borderColor: !isSelectedShow ? Colors.green : '#ddd',
                     backgroundColor: !isSelectedShow ? '#CBF14740' : 'transparent',
                   }}>
-                  <Text>비공개</Text>
+                  <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>비공개</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -125,7 +124,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                 justifyContent: 'center',
                 borderRadius: 50,
               }}>
-              <Text>저장</Text>
+              <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>저장</Text>
             </TouchableOpacity>
           </View>
         </Modal>

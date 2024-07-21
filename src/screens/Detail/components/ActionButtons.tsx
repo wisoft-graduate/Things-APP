@@ -5,13 +5,15 @@ import Icons from 'react-native-vector-icons/Ionicons'
 import ChatIconSvg from '../../../assets/svgs/ChatIconSvg'
 import { useNavigation } from '@react-navigation/native'
 import BookmarkModal from '../templates/BookmarkModal'
+import { userInfoStore } from '../../../zustand/User'
 
 function ActionButtons({ item }) {
   const navigation = useNavigation()
 
   const [isLike, setIsLike] = useState<boolean>(false)
-  const [isBookmark, setIsBookmark] = useState<boolean>(false)
   const [isShowBookmarkModal, setIsShowBookmarkModal] = useState(false)
+
+  const { data: userData } = userInfoStore()
 
   const showModal = () => setIsShowBookmarkModal(true)
 
@@ -30,7 +32,13 @@ function ActionButtons({ item }) {
       />
       <TouchableOpacity
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}
-        onPress={() => setIsLike(!isLike)}>
+        onPress={() => {
+          if (userData.id === '') {
+            navigation.navigate('SignHome')
+            return
+          }
+          setIsLike(!isLike)
+        }}>
         <Icons name="heart-outline" size={24} color={isLike ? 'red' : 'white'} />
         <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{item?.likeCount}</Text>
       </TouchableOpacity>
@@ -51,10 +59,13 @@ function ActionButtons({ item }) {
       <TouchableOpacity
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}
         onPress={() => {
+          if (userData.id === '') {
+            navigation.navigate('SignHome')
+            return
+          }
           showModal()
-          setIsBookmark(!isBookmark)
         }}>
-        <Icons name="bookmark-outline" size={24} color={isBookmark ? 'red' : 'white'} />
+        <Icons name="bookmark-outline" size={24} color={'white'} />
       </TouchableOpacity>
     </View>
   )

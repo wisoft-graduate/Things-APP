@@ -1,21 +1,31 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { FlatList, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
-import SearchTextInputComp from '../../@common/components/SearchTextInputComp'
+import SearchTextInputComp from '../Search/components/SearchTextInputComp'
 import CardComp from './components/CardComp'
 import AddCardComp from './components/AddCardComp'
 import useGetBookmark from '../../screens/Detail/hooks/useGetBookmark'
+import { userInfoStore } from '../../zustand/User'
 
 function ListScreen() {
   const [selectedTab, setSelectedTab] = useState<string>('좋아요 순')
   const { data } = useGetBookmark()
   const bookmarkList = data?.data
 
+  const navigation = useNavigation()
+  const { data: userData } = userInfoStore()
+
+  useEffect(() => {
+    if (userData.id === '') {
+      navigation.reset({ routes: [{ name: 'SignHome' }] })
+    }
+  }, [data])
+
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <StatusBar barStyle="dark-content" />
       <View style={{ paddingHorizontal: 20 }}>
-        <SearchTextInputComp />
         <ScrollView>
           <View
             style={{

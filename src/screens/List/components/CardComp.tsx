@@ -12,7 +12,7 @@ function CardComp({ item }) {
       </View>
       <View style={{ alignItems: 'center', marginTop: 20, flexDirection: 'row', gap: 12, justifyContent: 'center' }}>
         <Text>{item.icon}</Text>
-        <Text>{item.name}</Text>
+        <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>{item.name}</Text>
       </View>
     </View>
   )

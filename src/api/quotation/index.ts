@@ -17,13 +17,29 @@ import thingsAxios from '../../api/thingsAxios'
 /**
  * @description GET: 명언 호출
  */
-export async function getQuotation() {
+export async function getQuotation(params) {
+  const { page = 1, count = 20 } = params
   try {
-    const response = await thingsAxios.get<GetUserWalletResponse>(`/quotations?page=1&count=20`)
+    const response = await thingsAxios.get<GetUserWalletResponse>(`/quotations?page=${page}&count=${count}`)
     const data = _.get(response, ['data', 'data'])
     return { data }
   } catch (error) {
     console.error('@common > api > quotation > getQuotation\n', error)
+  }
+}
+/**
+ * @description GET: 명언 호출
+ */
+export async function getQuotationSearch(params) {
+  const { searchWord, page = 1, count = 20 } = params
+  try {
+    const response = await thingsAxios.get<GetUserWalletResponse>(
+      `/quotations?searchWord=${searchWord}&page=${page}&count=${count}`,
+    )
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > quotation > getQuotationSearch\n', error)
   }
 }
 

@@ -32,7 +32,7 @@ function CommentComp({ item, getComments }) {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text>삭제</Text>
+        <Text style={{ fontSize: 14, color: 'black', fontWeight: '400' }}>삭제</Text>
       </TouchableOpacity>
     )
   }

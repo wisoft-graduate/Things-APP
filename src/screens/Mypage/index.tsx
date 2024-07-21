@@ -8,9 +8,6 @@ import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import { Colors } from '../../@common/styles/colors'
 import TagButton from './components/TagButton'
-import { userIdStorage } from '../../storage/secure'
-import * as ThingsAPI from '../../api'
-import { UserIdMyPageData } from 'api/user/types'
 import { userInfoStore } from '../../zustand/User'
 import useGetBookmark from '../../screens/Detail/hooks/useGetBookmark'
 
@@ -27,7 +24,7 @@ function MyScreen() {
 
   useEffect(() => {
     if (data.id === '') {
-      navigation.navigate('SignHome')
+      navigation.reset({ routes: [{ name: 'SignHome' }] })
     }
   }, [data])
 
