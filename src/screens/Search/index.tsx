@@ -35,7 +35,7 @@ function SearchScreen() {
                 key={index}
                 onPress={() => setSelectedTab(item)}
                 style={{ borderBottomWidth: selectedTab === item ? 2 : 0, paddingBottom: 5 }}>
-                <Text style={{ fontSize: 14 }}>{item}</Text>
+                <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }}>{item}</Text>
               </TouchableOpacity>
             )
           })}

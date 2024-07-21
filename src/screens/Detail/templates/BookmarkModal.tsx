@@ -2,24 +2,52 @@ import React, { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { Modal, Portal } from 'react-native-paper'
 import AddNewListModal from './AddNewListModal'
+import useBookmark from '../hooks/useBookmark'
+import useGetBookmark from '../hooks/useGetBookmark'
+import { Colors } from '../../../@common/styles/colors'
 
-function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal }) {
+function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationId }) {
   const hideModal = () => setIsShowBookmarkModal(false)
+  const { data } = useGetBookmark()
+  const { putBookmark } = useBookmark()
 
+  const bookmarkList = data?.data
   const [isShowAddListModal, setIsShowAddListModal] = useState(false)
+  const [selectedItem, setSelectedItem] = useState({
+    id: '',
+    name: '',
+    quotationIds: [],
+    visibility: true,
+    icon: '',
+  })
 
-  function BookmarkItem() {
+  function BookmarkItem({ item }) {
+    const params = {
+      id: item?.id,
+      name: item?.name,
+      quotationIds: [item?.id, ...item?.quotationIds],
+      visibility: item?.visibility,
+      icon: item?.icon,
+    }
     return (
       <TouchableOpacity
+        onPress={() => {
+          setSelectedItem(params)
+        }}
         style={{
           borderRadius: 20,
           borderWidth: 1,
-          borderColor: '#ddd',
+          borderColor: selectedItem?.id === item?.id ? Colors.green : '#ddd',
+          backgroundColor: selectedItem?.id === item?.id ? '#CBF14750' : 'transparent',
           paddingVertical: 22,
           alignItems: 'center',
           width: '47%',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          gap: 12,
         }}>
-        <Text>자존감</Text>
+        <Text>{item.icon}</Text>
+        <Text>{item.name}</Text>
       </TouchableOpacity>
     )
   }
@@ -60,21 +88,23 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal }) {
             </TouchableOpacity>
             <ScrollView
               contentContainerStyle={{ gap: 16, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
-              <BookmarkItem />
+              {bookmarkList?.length === 0 && (
+                <View style={{ alignItems: 'center', gap: 6 }}>
+                  <Text style={{ fontSize: 14, color: 'gray', fontWeight: '400' }}>생성된 리스트가 없습니다.</Text>
+                  <Text style={{ fontSize: 14, color: 'gray', fontWeight: '400' }}>새로 생성해주세요.</Text>
+                </View>
+              )}
+              {bookmarkList?.map(item => (
+                <BookmarkItem item={item} />
+              ))}
             </ScrollView>
             <TouchableOpacity
+              onPress={() => {
+                if (selectedItem.id !== '') {
+                  putBookmark(selectedItem)
+                }
+                hideModal()
+              }}
               style={{
                 backgroundColor: '#F3F3F3',
                 width: 280,

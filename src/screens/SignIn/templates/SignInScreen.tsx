@@ -45,7 +45,7 @@ function SignInScreen(props) {
             />
           </View>
           <View style={{ alignItems: 'center', marginBottom: 40 }}>
-            <Text style={{ fontSize: 28 }}>LOGIN</Text>
+            <Text style={{ fontSize: 28, color: 'black' }}>LOGIN</Text>
           </View>
           <View style={{ gap: 20 }}>
             <TextInputComp placeholder="로그인 아이디..." value={idValue} setValue={setIdValue} />

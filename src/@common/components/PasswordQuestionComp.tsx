@@ -21,7 +21,11 @@ function PasswordQuestionComp() {
             borderColor: '#DDDDDD',
           }}>
           {passwordQuestions.map((item, index) => {
-            return <Text key={index}>{item}</Text>
+            return (
+              <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }} key={index}>
+                {item}
+              </Text>
+            )
           })}
         </View>
       </ScrollView>
@@ -42,7 +46,7 @@ function PasswordQuestionComp() {
           flexDirection: 'row',
           borderColor: '#DDDDDD',
         }}>
-        <Text style={{ fontSize: 14, color: 'gray' }}>본인 확인 질문 선택...</Text>
+        <Text style={{ fontSize: 14, color: 'gray', fontWeight: '400' }}>본인 확인 질문 선택...</Text>
       </TouchableOpacity>
       {isOpen && <OpenedQuestionComp />}
     </View>

@@ -4,11 +4,13 @@ import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-c
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { LogLevel, OneSignal } from 'react-native-onesignal'
 import { PaperProvider } from 'react-native-paper'
+import { QueryClientProvider } from '@tanstack/react-query'
 
 import { ONESIGNAL_ID } from '@env'
 import Navigator from './src/navigation'
 import useGetUserInfo from './src/@common/hooks/useGetUserInfo'
 import useOnesignal from './src/@common/hooks/useOnesignal'
+import { queryClient } from './src/api/react-query'
 
 function App(): React.JSX.Element {
   useGetUserInfo()
@@ -35,7 +37,9 @@ function App(): React.JSX.Element {
     <PaperProvider>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Navigator />
+          <QueryClientProvider client={queryClient}>
+            <Navigator />
+          </QueryClientProvider>
         </GestureHandlerRootView>
       </SafeAreaProvider>
     </PaperProvider>

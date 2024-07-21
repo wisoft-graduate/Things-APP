@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Entypo'
+import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import * as ThingsAPI from '../../../api/index'
+import getElapsedHour from '../../../@common/utils/getElapsedHour'
 
 function CommentComp({ item, getComments }) {
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(false)
-  // console.log(item)
+
+  const time = new Date(item?.item?.createdTime)
 
   async function deleteComment() {
     const response = await ThingsAPI.deleteComments({ id: item?.item?.id })
     if (response) {
-      console.log(response)
       getComments({ quotationId: item?.item?.quotationId })
     }
   }
@@ -38,11 +40,11 @@ function CommentComp({ item, getComments }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
       <View style={{ flexDirection: 'row', gap: 20 }}>
-        <View style={{ width: 30, height: 30, borderRadius: 100, backgroundColor: 'red' }} />
+        <IonIcons name="person-circle-outline" size={32} color={'lightgray'} />
         <View style={{ gap: 6 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
             <Text style={{ fontSize: 14, fontWeight: '500', color: 'black' }}>{item?.item?.userId}</Text>
-            <Text style={{ fontSize: 12, fontWeight: '400', color: 'gray' }}>1시간 전</Text>
+            <Text style={{ fontSize: 12, fontWeight: '400', color: 'gray' }}>{getElapsedHour(time)}</Text>
           </View>
           <Text style={{ fontSize: 14, fontWeight: '400', color: 'black' }}>{item?.item?.content}</Text>
           <TouchableOpacity>

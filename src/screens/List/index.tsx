@@ -4,9 +4,12 @@ import { FlatList, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, 
 import SearchTextInputComp from '../../@common/components/SearchTextInputComp'
 import CardComp from './components/CardComp'
 import AddCardComp from './components/AddCardComp'
+import useGetBookmark from '../../screens/Detail/hooks/useGetBookmark'
 
 function ListScreen() {
   const [selectedTab, setSelectedTab] = useState<string>('좋아요 순')
+  const { data } = useGetBookmark()
+  const bookmarkList = data?.data
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
@@ -24,18 +27,9 @@ function ListScreen() {
               justifyContent: 'center',
             }}>
             <AddCardComp />
-
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
-            <CardComp />
+            {bookmarkList?.map(item => (
+              <CardComp item={item} />
+            ))}
           </View>
         </ScrollView>
       </View>

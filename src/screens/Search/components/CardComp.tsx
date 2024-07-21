@@ -29,7 +29,7 @@ function CardComp({ item }) {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{ color: 'white', fontWeight: '700' }}>{item?.rank}</Text>
+        <Text style={{ color: 'white', fontSize: 14, fontWeight: '700' }}>{item?.rank}</Text>
       </View>
       <View
         style={{
@@ -39,7 +39,7 @@ function CardComp({ item }) {
           alignItems: 'flex-end',
           gap: 3,
         }}>
-        <Text style={{ fontSize: 14, color: 'white' }}>{item?.id}</Text>
+        <Text style={{ fontSize: 14, color: 'white', fontWeight: '400' }}>{item?.id}</Text>
       </View>
     </TouchableOpacity>
   )

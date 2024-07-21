@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Colors } from '../../../@common/styles/colors'
-import { SafeAreaView, Text, TouchableOpacity } from 'react-native'
+import { Alert, SafeAreaView, Text, TouchableOpacity } from 'react-native'
 import { TextInput, View } from 'react-native'
+import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import * as ThingsAPI from '../../../api/index'
 import { userIdStorage } from '../../../storage/secure'
@@ -9,8 +10,6 @@ import useComments from '../hooks/useComments'
 
 function CommentTextInputComp({ quotationId, getComments }) {
   const [value, setValue] = useState<string>('')
-
-  // console.log(data.id)
 
   async function postComment() {
     const userId = await userIdStorage.get()
@@ -21,7 +20,6 @@ function CommentTextInputComp({ quotationId, getComments }) {
     }
     const response = await ThingsAPI.postComments(params)
     if (response) {
-      console.log(response)
       getComments({ quotationId })
       setValue('')
     }
@@ -40,7 +38,7 @@ function CommentTextInputComp({ quotationId, getComments }) {
           width: '100%',
           justifyContent: 'space-between',
         }}>
-        <View style={{ width: 40, height: 40, borderRadius: 100, backgroundColor: 'skyblue' }} />
+        <IonIcons name="person-circle-outline" size={40} color={'lightgray'} />
         <View
           style={{
             backgroundColor: '#f3f3f3',
@@ -60,8 +58,29 @@ function CommentTextInputComp({ quotationId, getComments }) {
             value={value}
             onChange={event => setValue(event.nativeEvent.text)}
           />
-          <TouchableOpacity onPress={() => postComment()}>
-            <View style={{ width: 45, height: 30, backgroundColor: Colors.green, borderRadius: 20 }} />
+          <TouchableOpacity
+            onPress={() => {
+              if (value.length === 0) {
+                Alert.alert('내용을 입력해주세요', '', [
+                  {
+                    text: '확인',
+                  },
+                ])
+                return
+              }
+              postComment()
+            }}>
+            <View
+              style={{
+                width: 45,
+                height: 30,
+                backgroundColor: Colors.green,
+                borderRadius: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <IonIcons name="arrow-up" size={24} />
+            </View>
           </TouchableOpacity>
         </View>
       </View>

@@ -8,7 +8,7 @@ function HomeScreen() {
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <StatusBar barStyle="dark-content" />
       <View>
-        <Text style={{ fontSize: 40 }}>HomeScreen</Text>
+        <Text style={{ color: 'black', fontSize: 40, fontWeight: '400' }}>HomeScreen</Text>
       </View>
     </SafeAreaView>
   )

@@ -4,11 +4,17 @@ import { Modal, Portal } from 'react-native-paper'
 import EmojiPicker from 'rn-emoji-keyboard'
 
 import { Colors } from '../../../@common/styles/colors'
+import useBookmark from '../hooks/useBookmark'
+import useGetBookmark from '../hooks/useGetBookmark'
 
 function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowBookmarkModal }) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [value, setValue] = useState<string>('')
+  const [icon, setIcon] = useState<string>('')
   const [isSelectedShow, setIsSelectedShow] = useState<boolean>(true)
+
+  const { postBookmark } = useBookmark()
+  const { refetch } = useGetBookmark()
 
   return (
     <View>
@@ -24,7 +30,15 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
               gap: 16,
             }}>
             <Text>새 리스트 생성</Text>
-            <EmojiPicker onEmojiSelected={() => {}} open={isOpen} onClose={() => setIsOpen(false)} />
+            <EmojiPicker
+              onEmojiSelected={icon => {
+                console.log(icon)
+                setIcon(icon.emoji)
+              }}
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              enableSearchBar
+            />
             <View style={{ flexDirection: 'row', gap: 10 }}>
               <TouchableOpacity
                 onPress={() => {
@@ -38,7 +52,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                   justifyContent: 'center',
                   borderRadius: 50,
                 }}>
-                <Text>+</Text>
+                <Text>{icon}+</Text>
               </TouchableOpacity>
               <TextInput
                 style={{
@@ -95,6 +109,12 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                 setValue('')
                 setIsShowAddListModal(false)
                 setIsShowBookmarkModal(true)
+                postBookmark({
+                  name: value,
+                  icon,
+                  isVisibility: isSelectedShow,
+                })
+                refetch()
               }}
               style={{
                 marginTop: 40,

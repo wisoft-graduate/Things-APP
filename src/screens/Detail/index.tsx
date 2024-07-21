@@ -9,6 +9,7 @@ import ActionButtons from './components/ActionButtons'
 
 import * as ThingsAPI from '../../api/index'
 import { useRoute } from '@react-navigation/native'
+import useBookmark from './hooks/useBookmark'
 
 function DetailScreen() {
   const [data, setData] = useState([])

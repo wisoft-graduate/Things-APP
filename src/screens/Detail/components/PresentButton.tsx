@@ -16,7 +16,7 @@ function PresentButton() {
         borderColor: Colors.green,
         backgroundColor: '#D9D9D910',
       }}>
-      <Text style={{ color: 'white', fontSize: 12 }}>대표 명언 설정</Text>
+      <Text style={{ color: 'white', fontSize: 12, fontWeight: '400' }}>대표 명언 설정</Text>
     </View>
   )
 }

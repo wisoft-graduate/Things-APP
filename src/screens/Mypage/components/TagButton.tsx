@@ -3,7 +3,7 @@ import { Text, TouchableOpacity } from 'react-native'
 
 import { Colors } from '../../../@common/styles/colors'
 
-function TagButton() {
+function TagButton({ item }) {
   return (
     <TouchableOpacity
       style={{
@@ -15,9 +15,10 @@ function TagButton() {
         borderRadius: 10,
         backgroundColor: '#CBF14720',
         borderColor: Colors.green,
+        gap: 4,
       }}>
-      <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>자존감</Text>
-      <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>12</Text>
+      <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>{item?.icon}</Text>
+      <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>{item?.name}</Text>
     </TouchableOpacity>
   )
 }

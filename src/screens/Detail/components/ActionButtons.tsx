@@ -23,7 +23,11 @@ function ActionButtons({ item }) {
 
   return (
     <View style={styles.container}>
-      <BookmarkModal isShowBookmarkModal={isShowBookmarkModal} setIsShowBookmarkModal={setIsShowBookmarkModal} />
+      <BookmarkModal
+        isShowBookmarkModal={isShowBookmarkModal}
+        setIsShowBookmarkModal={setIsShowBookmarkModal}
+        quotationId={item.id}
+      />
       <TouchableOpacity
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}
         onPress={() => setIsLike(!isLike)}>

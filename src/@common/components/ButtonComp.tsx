@@ -20,14 +20,14 @@ function ButtonComp(props: ButtonCompProps) {
           borderWidth: 1,
           borderColor: Colors.green,
         }}>
-        <Text style={{ color: Colors.white }}>{text}</Text>
+        <Text style={{ color: Colors.white, fontSize: 14, fontWeight: '400' }}>{text}</Text>
       </TouchableOpacity>
     )
   }
 
   return (
     <TouchableOpacity onPress={func} style={styles.container}>
-      <Text>{text}</Text>
+      <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }}>{text}</Text>
     </TouchableOpacity>
   )
 }
