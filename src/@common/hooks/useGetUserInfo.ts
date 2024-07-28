@@ -9,7 +9,6 @@ function useGetUserInfo() {
   async function fetchUserInfo({ userId }) {
     const response = await ThingsAPI.getUserId({ id: userId })
     if (response) {
-      console.log('res', response)
       insert(response.data)
     }
   }
@@ -22,9 +21,7 @@ function useGetUserInfo() {
     }
   }
 
-  useEffect(() => {
-    getUser()
-  }, [])
+  return { getUser }
 }
 
 export default useGetUserInfo

@@ -9,7 +9,6 @@ import ActionButtons from './components/ActionButtons'
 
 import * as ThingsAPI from '../../api/index'
 import { useRoute } from '@react-navigation/native'
-import useBookmark from './hooks/useBookmark'
 
 function DetailScreen() {
   const [data, setData] = useState([])
@@ -76,7 +75,7 @@ function DetailScreen() {
               <ActionButtons item={item} />
             </View>
             <View style={{ position: 'absolute', bottom: 20, marginLeft: 20 }}>
-              <PresentButton />
+              <PresentButton favoriteQuotation={item?.content} favoriteAuthor={item?.author?.name} />
             </View>
           </View>
         </SafeAreaView>

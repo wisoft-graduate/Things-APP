@@ -11,12 +11,13 @@ function CommentsScreen() {
   const quotationId = route?.params?.id
 
   const [commentsList, setCommentsList] = useState()
+  const [reCommentId, setReCommentId] = useState(undefined)
 
   async function getComments({ quotationId }) {
     const params = {
       // commentIds?: string[] | string
       quotationId,
-      // parentId?: string
+      parentId: reCommentId,
       isTopDepth: true,
     }
     const response = await ThingsAPI.getComments(params)
@@ -34,10 +35,26 @@ function CommentsScreen() {
         data={commentsList}
         style={{ backgroundColor: 'white' }}
         contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 30, gap: 24 }}
-        renderItem={item => <CommentComp item={item} getComments={getComments} />}
+        renderItem={item => {
+          return (
+            <View>
+              <CommentComp item={item} getComments={getComments} setReCommentId={setReCommentId} />
+              <View style={{ paddingLeft: 40, marginTop: 20 }}>
+                {item?.item?.childComments?.map(childComment => (
+                  <CommentComp childComment={childComment} getComments={getComments} setReCommentId={setReCommentId} />
+                ))}
+              </View>
+            </View>
+          )
+        }}
         ListFooterComponent={<View style={{ height: 30 }} />}
       />
-      <CommentTextInputComp quotationId={quotationId} getComments={getComments} />
+      <CommentTextInputComp
+        quotationId={quotationId}
+        getComments={getComments}
+        reCommentId={reCommentId}
+        setReCommentId={setReCommentId}
+      />
     </SafeAreaView>
   )
 }

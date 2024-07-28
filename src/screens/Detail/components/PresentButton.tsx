@@ -1,26 +1,32 @@
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Text, TouchableOpacity, View } from 'react-native'
 
 import { Colors } from '../../../@common/styles/colors'
 import * as ThingsAPI from '../../../api/index'
 import { userInfoStore } from '../../../zustand/User'
+import useGetUserInfo from '../../../@common/hooks/useGetUserInfo'
 
-function PresentButton() {
+function PresentButton({ favoriteQuotation, favoriteAuthor }) {
   const { data } = userInfoStore()
+  const { getUser } = useGetUserInfo()
 
   async function savePresentQuotation() {
     const params = {
       id: data?.id,
       // nickname: '',
       // profilePath: '',
-      favoriteQuotation: 'dsafs',
-      favoriteAuthor: 'sdfads',
+      favoriteQuotation: favoriteQuotation,
+      favoriteAuthor: favoriteAuthor,
       // quotationAlarm: true,
       // commentAlarm: true,
       // identityVerificationQuestion: '',
       // identityVerificationAnswer: '',
     }
-    const response = ThingsAPI.putUsers(params)
+    const response = await ThingsAPI.putUsers(params)
+    if (response?.data) {
+      Alert.alert('대표 명언 설정이 완료되었습니다.', '', [{}])
+      getUser()
+    }
   }
 
   return (

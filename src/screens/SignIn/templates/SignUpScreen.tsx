@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { Alert, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import TitleComp from '../components/Title'
@@ -16,32 +16,24 @@ function SignUpScreen() {
   const [nicknameValue, setNicknameValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const [passwordCheckValue, setPasswordCheckValue] = useState('')
+
+  const [selfCheckQuestion, setSelfCheckQuestion] = useState('')
   const [selfCheckValue, setSelfCheckValue] = useState('')
 
   async function onSignup() {
     const params = {
-      id: 'jiyeon2',
-      password: 'jiyeon22',
-      nickname: 'jiyeon2',
-      identityVerificationQuestion: '난 누구인가',
-      identityVerificationAnswer: '박지연',
+      id: idValue,
+      password: passwordValue,
+      nickname: nicknameValue,
+      identityVerificationQuestion: selfCheckQuestion,
+      identityVerificationAnswer: selfCheckValue,
     }
-    // try {
-    //   const response = await axios.get('http://52.79.229.237:8080/users?searchNickname=jiyeon')
-    //   if (response) {
-    //     console.log('res', response)
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    // }
 
-    try {
-      const res = await ThingsAPI.postSignUp(params)
-      if (res) {
-        console.log(res)
-      }
-    } catch (error) {
-      console.log(error)
+    const res = await ThingsAPI.postSignUp(params)
+    if (!res.data) {
+      navigation.goBack()
+    } else {
+      Alert.alert(res?.data?.message, '', [{}])
     }
   }
 
@@ -57,23 +49,38 @@ function SignUpScreen() {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingVertical: 20 }}>
           <View style={{ justifyContent: 'space-between', gap: 10 }}>
             <View>
-              <TextInputComp placeholder="로그인 아이디..." check="check" value={idValue} setValue={setIdValue} />
-              <Text style={{ color: Colors.green, marginLeft: 20 }}>* 사용가능한 아이디입니다.</Text>
+              <TextInputComp placeholder="로그인 아이디..." value={idValue} setValue={setIdValue} />
+              {/* <Text style={{ color: Colors.green, marginLeft: 20 }}>* 사용가능한 아이디입니다.</Text> */}
             </View>
             <View>
-              <TextInputComp placeholder="닉네임..." check="error" value={nicknameValue} setValue={setNicknameValue} />
-              <Text style={{ color: Colors.error, marginLeft: 20 }}>* 중복되는 닉네임입니다.</Text>
+              <TextInputComp placeholder="닉네임..." value={nicknameValue} setValue={setNicknameValue} />
+              {/* <Text style={{ color: Colors.error, marginLeft: 20 }}>* 중복되는 닉네임입니다.</Text> */}
             </View>
             <TextInputComp placeholder="비밀번호..." value={passwordValue} setValue={setPasswordValue} />
             <TextInputComp placeholder="비밀번호 확인..." value={passwordCheckValue} setValue={setPasswordCheckValue} />
-            <PasswordQuestionComp />
+            <PasswordQuestionComp selfCheckQuestion={selfCheckQuestion} setSelfCheckQuestion={setSelfCheckQuestion} />
             <TextInputComp placeholder="본인 확인 답변 입력..." value={selfCheckValue} setValue={setSelfCheckValue} />
           </View>
         </ScrollView>
         <ButtonComp
-          // @ts-ignore
-          // func={() => navigation.push('SignHome')}
-          func={() => onSignup()}
+          func={() => {
+            if (
+              idValue === '' ||
+              nicknameValue === '' ||
+              passwordValue === '' ||
+              passwordCheckValue === '' ||
+              selfCheckQuestion === '' ||
+              selfCheckValue
+            ) {
+              Alert.alert('모든 정보가 입력되어있는지 확인해주세요', '', [{}])
+              return
+            }
+            if (passwordValue !== passwordCheckValue) {
+              Alert.alert('비밀번호와 비밀번호 확인란이 동일하지 않습니다.', '', [{}])
+              return
+            }
+            onSignup()
+          }}
           text={'확인'}
         />
       </View>

@@ -15,7 +15,7 @@ export interface UserProfileStore {
   login: () => void
   insert: (data: UserProfilesData) => void
   updateNickname: (nickname: string) => void
-  updateHandleId: (handleId: string) => void
+  updateId: (handleId: string) => void
   updateProfileImage: (profileImage: string) => void
   remove: () => void
 }

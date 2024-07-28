@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -14,7 +14,7 @@ import { queryClient } from './src/api/react-query'
 import useTokenReissue from './src/@common/hooks/useTokenReissue'
 
 function App(): React.JSX.Element {
-  useGetUserInfo()
+  const { getUser } = useGetUserInfo()
   useTokenReissue()
 
   OneSignal.Debug.setLogLevel(LogLevel.Verbose)
@@ -34,6 +34,10 @@ function App(): React.JSX.Element {
   OneSignal.Notifications.addEventListener('click', event => {
     console.log('OneSignal: notification clicked:', event)
   })
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   return (
     <PaperProvider>

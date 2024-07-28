@@ -3,7 +3,7 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { passwordQuestions } from '../../assets/jsons/passwordQuestions'
 
-function PasswordQuestionComp() {
+function PasswordQuestionComp({ selfCheckQuestion, setSelfCheckQuestion }) {
   const [isOpen, setIsOpen] = useState(false)
 
   function OpenedQuestionComp() {
@@ -22,9 +22,15 @@ function PasswordQuestionComp() {
           }}>
           {passwordQuestions.map((item, index) => {
             return (
-              <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }} key={index}>
-                {item}
-              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelfCheckQuestion(item)
+                  setIsOpen(false)
+                }}>
+                <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }} key={index}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
             )
           })}
         </View>
@@ -46,7 +52,9 @@ function PasswordQuestionComp() {
           flexDirection: 'row',
           borderColor: '#DDDDDD',
         }}>
-        <Text style={{ fontSize: 14, color: 'gray', fontWeight: '400' }}>본인 확인 질문 선택...</Text>
+        <Text style={{ fontSize: 14, color: selfCheckQuestion !== '' ? 'black' : 'gray', fontWeight: '400' }}>
+          {selfCheckQuestion !== '' ? selfCheckQuestion : '본인 확인 질문 선택...'}
+        </Text>
       </TouchableOpacity>
       {isOpen && <OpenedQuestionComp />}
     </View>

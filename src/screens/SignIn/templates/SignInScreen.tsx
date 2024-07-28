@@ -9,10 +9,13 @@ import ButtonComp from '../../../@common/components/ButtonComp'
 import CloseButton from '../../../@common/components/CloseButton'
 import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../../storage/secure'
 import { setAxiosHeaders } from '../../../api/thingsAxios'
+import { userInfoStore } from '../../../zustand/User'
 
 function SignInScreen(props) {
-  const { bottomSheetModalRef } = props
+  const { bottomSheetModalRef, setIsOpenedModal } = props
   const { push } = useNavigation()
+
+  const { updateId } = userInfoStore()
 
   const [idValue, setIdValue] = useState<string>('')
   const [passwordValue, setPasswordValue] = useState<string>('')
@@ -23,10 +26,12 @@ function SignInScreen(props) {
     const res = await ThingsAPI.postSignIn({ id: idValue, password: passwordValue })
     if (res?.data?.accessToken) {
       bottomSheetModalRef.current?.dismiss()
+      setIsOpenedModal(false)
       setAxiosHeaders(res?.data?.accessToken)
       await accessTokenStorage.set(res?.data?.accessToken)
       await refreshTokenStorage.set(res?.data?.accessToken)
       await userIdStorage.set(idValue)
+      updateId(idValue)
       push('BottomTabNavigator', { screen: 'Home' })
     } else {
       Alert.alert(res?.data?.message, '', [{}])
@@ -34,13 +39,21 @@ function SignInScreen(props) {
   }
 
   return (
-    <BottomSheetModal ref={bottomSheetModalRef} index={0} snapPoints={snapPoints}>
+    <BottomSheetModal
+      ref={bottomSheetModalRef}
+      index={0}
+      snapPoints={snapPoints}
+      onDismiss={() => {
+        bottomSheetModalRef.current?.dismiss()
+        setIsOpenedModal(false)
+      }}>
       <BottomSheetView>
         <View style={{ paddingHorizontal: 40, paddingVertical: 20 }}>
           <View style={{ alignSelf: 'flex-end', marginBottom: 20 }}>
             <CloseButton
               onPress={() => {
                 bottomSheetModalRef.current?.dismiss()
+                setIsOpenedModal(false)
               }}
             />
           </View>

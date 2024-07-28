@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Dimensions, Image, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Fontisto'
 import SetIcons from 'react-native-vector-icons/AntDesign'
 import PenIcons from 'react-native-vector-icons/Octicons'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import { Colors } from '../../@common/styles/colors'
 import TagButton from './components/TagButton'
 import { userInfoStore } from '../../zustand/User'
 import useGetBookmark from '../../screens/Detail/hooks/useGetBookmark'
+import useGetUserInfo from '../../@common/hooks/useGetUserInfo'
 
 const { width } = Dimensions.get('window')
 
 function MyScreen() {
   const navigation = useNavigation()
-  const isFocused = useIsFocused()
+  const { getUser } = useGetUserInfo()
 
   const { data } = userInfoStore()
   const { data: bookmarkData } = useGetBookmark()
@@ -25,8 +26,13 @@ function MyScreen() {
   useEffect(() => {
     if (data.id === '') {
       navigation.reset({ routes: [{ name: 'SignHome' }] })
+      return
     }
   }, [data])
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>

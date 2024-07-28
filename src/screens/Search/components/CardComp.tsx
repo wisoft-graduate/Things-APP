@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Dimensions, Text, TouchableOpacity, View } from 'react-native'
-import IonIcons from 'react-native-vector-icons/Ionicons'
 
 const width = Dimensions.get('screen').width
 

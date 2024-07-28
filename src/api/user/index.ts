@@ -21,7 +21,8 @@ export async function postSignUp(params: PostSignUpParams) {
     const reasonPhrase = _.get(response, ['data', 'message', 'reasonPhrase'])
     return { data, reasonPhrase }
   } catch (error) {
-    console.error('@common > api > user > postSignUp\n', error)
+    console.error('@common > api > user > postSignUp\n', error?.response)
+    return error?.response?.data
   }
 }
 

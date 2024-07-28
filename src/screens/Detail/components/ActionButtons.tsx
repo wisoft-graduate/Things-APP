@@ -6,6 +6,7 @@ import ChatIconSvg from '../../../assets/svgs/ChatIconSvg'
 import { useNavigation } from '@react-navigation/native'
 import BookmarkModal from '../templates/BookmarkModal'
 import { userInfoStore } from '../../../zustand/User'
+import * as ThingsAPI from '../../../api/index'
 
 function ActionButtons({ item }) {
   const navigation = useNavigation()
@@ -23,6 +24,24 @@ function ActionButtons({ item }) {
     })
   }
 
+  async function fetchLike() {
+    if (!isLike) {
+      const params = {
+        userId: userData.id,
+        quotationId: item?.id,
+      }
+      const response = await ThingsAPI.postLikes(params)
+      if (response) {
+        setIsLike(true)
+      }
+    } else {
+      const response = await ThingsAPI.deleteLikes({ id: item?.id })
+      if (response) {
+        setIsLike(false)
+      }
+    }
+  }
+
   return (
     <View style={styles.container}>
       <BookmarkModal
@@ -37,7 +56,7 @@ function ActionButtons({ item }) {
             navigation.navigate('SignHome')
             return
           }
-          setIsLike(!isLike)
+          fetchLike()
         }}>
         <Icons name="heart-outline" size={24} color={isLike ? 'red' : 'white'} />
         <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{item?.likeCount}</Text>

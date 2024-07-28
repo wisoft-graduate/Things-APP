@@ -13,7 +13,6 @@ function useBookmark() {
   async function getBookmark() {
     const response = await ThingsAPI.getBookmark({ userId: data?.id })
     if (response) {
-      console.log(response.data)
       setBookmarkList(response.data)
     }
   }

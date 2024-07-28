@@ -10,7 +10,7 @@ function useTokenReissue() {
     const response = await ThingsAPI.postUserRefreshToken()
 
     if (response) {
-      console.log(response)
+      return
     } else {
       remove()
       await accessTokenStorage.remove()

@@ -46,9 +46,11 @@ export async function getQuotationSearch(params) {
 /**
  * @description GET: 명언 랭크 호출
  */
-export async function getQuotationRank() {
+export async function getQuotationRank(isLike: boolean) {
   try {
-    const response = await thingsAxios.get<GetUserWalletResponse>(`/quotations/rank?rankProperty=LIKE&page=1&count=20`)
+    const response = await thingsAxios.get<GetUserWalletResponse>(
+      `/quotations/rank?rankProperty=${isLike ? `LIKE` : 'SHARE'}&page=1&count=20`,
+    )
     const data = _.get(response, ['data', 'data'])
     return { data }
   } catch (error) {

@@ -6,15 +6,15 @@ import IonIcons from 'react-native-vector-icons/Ionicons'
 import * as ThingsAPI from '../../../api/index'
 import getElapsedHour from '../../../@common/utils/getElapsedHour'
 
-function CommentComp({ item, getComments }) {
+function CommentComp({ item, childComment, getComments, setReCommentId }) {
   const [isOpenToggle, setIsOpenToggle] = useState<boolean>(false)
 
-  const time = new Date(item?.item?.createdTime)
+  const time = new Date(childComment?.createdTime ?? item?.item?.createdTime)
 
   async function deleteComment() {
-    const response = await ThingsAPI.deleteComments({ id: item?.item?.id })
+    const response = await ThingsAPI.deleteComments({ id: childComment?.id ?? item?.item?.id })
     if (response) {
-      getComments({ quotationId: item?.item?.quotationId })
+      getComments({ quotationId: childComment?.quotationId ?? item?.item?.quotationId })
     }
   }
 
@@ -43,11 +43,20 @@ function CommentComp({ item, getComments }) {
         <IonIcons name="person-circle-outline" size={32} color={'lightgray'} />
         <View style={{ gap: 6 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-            <Text style={{ fontSize: 14, fontWeight: '500', color: 'black' }}>{item?.item?.userId}</Text>
+            <Text style={{ fontSize: 14, fontWeight: '500', color: 'black' }}>
+              {childComment?.userId ?? item?.item?.userId}
+            </Text>
             <Text style={{ fontSize: 12, fontWeight: '400', color: 'gray' }}>{getElapsedHour(time)}</Text>
           </View>
-          <Text style={{ fontSize: 14, fontWeight: '400', color: 'black' }}>{item?.item?.content}</Text>
-          <TouchableOpacity>
+          <View style={{ width: 200 }}>
+            <Text style={{ fontSize: 14, fontWeight: '400', color: 'black' }}>
+              {childComment?.content ?? item?.item?.content}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              setReCommentId(item?.item?.id)
+            }}>
             <Text style={{ fontSize: 12, fontWeight: '400', color: 'gray' }}>답글 달기</Text>
           </TouchableOpacity>
         </View>

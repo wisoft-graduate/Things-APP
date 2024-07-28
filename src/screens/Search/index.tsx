@@ -13,7 +13,8 @@ function SearchScreen() {
   const [isShowSearchList, setIsShowSearchList] = useState(false)
 
   async function fetchQuotation() {
-    const res = await ThingsAPI.getQuotationRank()
+    const isLike = selectedTab === '좋아요 순'
+    const res = await ThingsAPI.getQuotationRank(isLike)
     if (res) {
       setData(res?.data?.quotationRanks)
       // push('BottomTabNavigator', { screen: 'Home' })
@@ -24,7 +25,7 @@ function SearchScreen() {
     if (!isShowSearchList) {
       fetchQuotation()
     }
-  }, [isShowSearchList])
+  }, [isShowSearchList, selectedTab])
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>

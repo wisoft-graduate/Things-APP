@@ -21,13 +21,13 @@ export const userInfoStore = create(
       set(prev => {
         prev.data.nickname = newData
       }),
-    updateHandleId: newData =>
+    updateId: newData =>
       set(prev => {
-        prev.data.handleId = newData
+        prev.data.id = newData
       }),
     updateProfileImage: newData =>
       set(prev => {
-        prev.data.profileImage = newData
+        prev.data.profilePath = newData
       }),
     remove: () =>
       set({
