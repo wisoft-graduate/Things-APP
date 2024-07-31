@@ -6040,6 +6040,11 @@ react-native-gesture-handler@^2.15.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-crop-picker@^0.41.2:
+  version "0.41.2"
+  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.41.2.tgz#824fa8fee8391fbb3e0b5ae2973221a2dff0cafb"
+  integrity sha512-GcDu/adXU/1y/MrxsbOfqcGRGWC2pTttt5VGy/jyRJ6GXfoC29fTQf8SG5kGtc5schSR6K+mKYO4uW6eJPljlQ==
+
 react-native-onesignal@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-5.2.2.tgz#7959c0315329d6f608f59886e656c6284388fb9c"

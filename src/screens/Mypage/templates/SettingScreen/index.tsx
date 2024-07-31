@@ -9,7 +9,7 @@ import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../..
 
 function SettingScreen() {
   const navigation = useNavigation()
-  const { remove } = userInfoStore()
+  const { data, remove } = userInfoStore()
 
   const [isCommentSwitchOn, setIsCommentSwitchOn] = useState(false)
   const [isPushSwitchOn, setIsPushSwitchOn] = useState(false)
@@ -27,7 +27,7 @@ function SettingScreen() {
       <View style={{ paddingHorizontal: 42, paddingVertical: 34 }}>
         <Text style={{ fontSize: 12, fontWeight: '300', color: '#767676', marginBottom: 14 }}>내정보</Text>
         <Text style={{ fontSize: 14, fontWeight: '400', color: '#000000', marginBottom: 10 }}>로그인 아이디</Text>
-        <Text style={{ fontSize: 12, fontWeight: '300', color: '#767676' }}>pgy5638@naver</Text>
+        <Text style={{ fontSize: 12, fontWeight: '300', color: '#767676' }}>{data?.id}</Text>
       </View>
       <View style={{ backgroundColor: '#ddd', height: 1 }} />
       <View style={{ paddingHorizontal: 42, paddingVertical: 34 }}>
