@@ -53,7 +53,6 @@ function ActionButtons({ item }) {
     }
     const response = await ThingsAPI.getLikes(params)
     if (response?.data?.id) {
-      console.log(response)
       setLikeId(response?.data?.id)
       setIsLike(true)
     }
