@@ -9,10 +9,13 @@ import ActionButtons from './components/ActionButtons'
 
 import * as ThingsAPI from '../../api/index'
 import { useRoute } from '@react-navigation/native'
+import { backgroundImages } from '../../assets/jsons/backgroundImage'
 
 function DetailScreen() {
   const [data, setData] = useState([])
   const [isNext, setIsNext] = useState(true)
+  const [paramIndex, setParamIndex] = useState(0)
+
   const route = useRoute()
   const params = route?.params?.params
 
@@ -45,15 +48,16 @@ function DetailScreen() {
 
   useEffect(() => {
     if (params) {
+      setParamIndex(route?.params?.index)
       fetchQuotationId()
     }
   }, [params])
 
-  function QuotationComp({ item }) {
+  function QuotationComp({ item, index }) {
     return (
       <ImageBackground
         style={{ width: '100%', height: '100%' }}
-        source={require('../../assets/images/bg.png')}
+        source={backgroundImages[data.length === 1 ? paramIndex % 50 : index % 50].src}
         resizeMode="cover">
         <SafeAreaView style={{ flex: 1 }}>
           <View style={{ paddingHorizontal: 20, flex: 1 }}>
@@ -61,13 +65,13 @@ function DetailScreen() {
             <View style={{ marginTop: '40%', marginLeft: 10 }}>
               <QuoteMarkSvg />
             </View>
-            <View style={{ marginHorizontal: 40, marginTop: 15 }}>
-              <Text numberOfLines={7} style={{ fontSize: 16, color: 'white', lineHeight: 24, fontWeight: '500' }}>
+            <View style={{ marginHorizontal: 40, marginTop: 15, backgroundColor: '#00000070' }}>
+              <Text numberOfLines={7} style={{ fontSize: 20, color: 'white', lineHeight: 30, fontWeight: '600' }}>
                 {item?.content}
               </Text>
             </View>
-            <View style={{ marginHorizontal: 40, marginTop: 7, alignSelf: 'flex-end' }}>
-              <Text style={{ fontSize: 12, color: 'white', lineHeight: 20, fontWeight: '400' }}>
+            <View style={{ marginHorizontal: 40, marginTop: 12, alignSelf: 'flex-end', backgroundColor: '#00000070' }}>
+              <Text style={{ fontSize: 16, color: 'white', lineHeight: 20, fontWeight: '500' }}>
                 - {item?.author?.name} -
               </Text>
             </View>
@@ -88,7 +92,7 @@ function DetailScreen() {
       <StatusBar barStyle="light-content" />
       <PagerView initialPage={0} orientation="vertical" style={{ flex: 1 }} useNext={isNext}>
         {data?.map((item, index) => {
-          return <QuotationComp key={index} item={item} />
+          return <QuotationComp key={index} item={item} index={index} />
         })}
       </PagerView>
     </View>

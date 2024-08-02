@@ -10,7 +10,7 @@ import { userInfoStore } from '../../zustand/User'
 
 function ListScreen() {
   const [selectedTab, setSelectedTab] = useState<string>('좋아요 순')
-  const { data } = useGetBookmark()
+  const { data, refetch } = useGetBookmark()
   const bookmarkList = data?.data
 
   const navigation = useNavigation()
@@ -38,7 +38,7 @@ function ListScreen() {
             }}>
             <AddCardComp />
             {bookmarkList?.map(item => (
-              <CardComp item={item} />
+              <CardComp item={item} refetch={refetch} />
             ))}
           </View>
         </ScrollView>

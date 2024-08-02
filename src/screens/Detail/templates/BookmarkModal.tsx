@@ -25,7 +25,8 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
     const params = {
       id: item?.id,
       name: item?.name,
-      quotationIds: [item?.id, ...item?.quotationIds],
+      quotationIds: [item?.id, ...item?.quotations],
+      quotationIds: [item?.id],
       visibility: item?.visibility,
       icon: item?.icon,
     }

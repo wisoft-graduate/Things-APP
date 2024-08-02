@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Ionicons'
 
@@ -13,6 +13,8 @@ function ActionButtons({ item }) {
 
   const [isLike, setIsLike] = useState<boolean>(false)
   const [isShowBookmarkModal, setIsShowBookmarkModal] = useState(false)
+  const [likeId, setLikeId] = useState('')
+  const [likeCount, setLikeCount] = useState(item?.likeCount)
 
   const { data: userData } = userInfoStore()
 
@@ -32,15 +34,37 @@ function ActionButtons({ item }) {
       }
       const response = await ThingsAPI.postLikes(params)
       if (response) {
+        setLikeCount(likeCount + 1)
         setIsLike(true)
       }
     } else {
-      const response = await ThingsAPI.deleteLikes({ id: item?.id })
+      const response = await ThingsAPI.deleteLikes({ id: likeId })
       if (response) {
+        setLikeCount(likeCount - 1)
         setIsLike(false)
       }
     }
   }
+
+  async function getLike() {
+    const params = {
+      userId: userData.id,
+      quotationId: item?.id,
+    }
+    const response = await ThingsAPI.getLikes(params)
+    if (response?.data?.id) {
+      console.log(response)
+      setLikeId(response?.data?.id)
+      setIsLike(true)
+    }
+  }
+
+  useEffect(() => {
+    if (userData.id === '') {
+      return
+    }
+    getLike()
+  }, [item?.id])
 
   return (
     <View style={styles.container}>
@@ -59,7 +83,7 @@ function ActionButtons({ item }) {
           fetchLike()
         }}>
         <Icons name="heart-outline" size={24} color={isLike ? 'red' : 'white'} />
-        <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{item?.likeCount}</Text>
+        <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{likeCount}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {

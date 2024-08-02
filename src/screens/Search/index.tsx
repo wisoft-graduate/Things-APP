@@ -60,7 +60,7 @@ function SearchScreen() {
               <Text style={{ fontSize: 16, color: 'gray', fontWeight: '400' }}>결과가 없습니다.</Text>
             </View>
           }
-          renderItem={item => <CardComp item={item?.item} />}
+          renderItem={({ item, index }) => <CardComp item={item} index={index} />}
           ListFooterComponent={() => <View style={{ height: 150 }} />}
         />
       </View>
