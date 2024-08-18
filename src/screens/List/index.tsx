@@ -18,7 +18,8 @@ function ListScreen() {
 
   useEffect(() => {
     if (userData.id === '') {
-      navigation.reset({ routes: [{ name: 'SignHome' }] })
+      navigation.reset({ routes: [{ name: 'Home' }] })
+      navigation.navigate('SignHome')
     }
   }, [data])
 

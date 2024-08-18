@@ -6,7 +6,7 @@ import { Colors } from '../styles/colors'
 import { TextInputCompProps } from '../types'
 
 function TextInputComp(props: TextInputCompProps) {
-  const { placeholder, check, value, setValue } = props
+  const { placeholder, check, value, setValue, isPassword } = props
 
   const inputStyle = () => {
     switch (check) {
@@ -31,13 +31,14 @@ function TextInputComp(props: TextInputCompProps) {
   }
 
   return (
-    <View style={[styles.container, inputStyle()]}>
+    <View>
       <TextInput
+        style={[styles.container, inputStyle()]}
         autoCapitalize="none"
-        value={value}
         onChange={event => setValue(event.nativeEvent.text)}
         placeholder={placeholder}
         placeholderTextColor={'#767676'}
+        secureTextEntry={isPassword}
       />
       <Icons name={iconName()} size={20} color={check === 'error' ? Colors.error : Colors.green} />
     </View>
@@ -48,9 +49,13 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     borderRadius: 50,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     justifyContent: 'space-between',
     flexDirection: 'row',
+    fontSize: 16,
+    color: 'black',
+    fontWeight: '400',
   },
   default: {
     borderColor: '#DDDDDD',

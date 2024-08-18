@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Alert, Text, View } from 'react-native'
+import { Alert, Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 
@@ -62,13 +62,18 @@ function SignInScreen(props) {
           </View>
           <View style={{ gap: 20 }}>
             <TextInputComp placeholder="로그인 아이디..." value={idValue} setValue={setIdValue} />
-            <TextInputComp placeholder="패스워드..." value={passwordValue} setValue={setPasswordValue} />
+            <TextInputComp placeholder="패스워드..." value={passwordValue} setValue={setPasswordValue} isPassword />
             <ButtonComp
               text={'로그인'}
               func={() => {
                 onSignIn()
               }}
             />
+            <TouchableOpacity style={{ alignItems: 'center' }}>
+              <Text style={{ fontWeight: '400', fontSize: 15, color: 'gray', textDecorationLine: 'underline' }}>
+                비밀번호 찾기
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </BottomSheetView>

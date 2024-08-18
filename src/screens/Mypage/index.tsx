@@ -25,7 +25,8 @@ function MyScreen() {
 
   useEffect(() => {
     if (data.id === '') {
-      navigation.reset({ routes: [{ name: 'SignHome' }] })
+      navigation.reset({ routes: [{ name: 'Home' }] })
+      navigation.navigate('SignHome')
       return
     }
   }, [data])

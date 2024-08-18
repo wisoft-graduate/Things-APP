@@ -13,6 +13,7 @@ export interface TextInputCompProps {
   check?: TextInputCheckType
   value: string
   setValue: Dispatch<SetStateAction<string>>
+  isPassword?: boolean
 }
 
 export interface CloseButtonProps {

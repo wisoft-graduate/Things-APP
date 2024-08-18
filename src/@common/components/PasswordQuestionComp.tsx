@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import IonIcons from 'react-native-vector-icons/Ionicons'
 
 import { passwordQuestions } from '../../assets/jsons/passwordQuestions'
 
@@ -8,17 +9,19 @@ function PasswordQuestionComp({ selfCheckQuestion, setSelfCheckQuestion }) {
 
   function OpenedQuestionComp() {
     return (
-      <ScrollView style={{ height: 100 }}>
+      <ScrollView style={{ height: 180 }}>
         <View
           style={{
             borderWidth: 1,
             borderRadius: 27,
-            padding: 20,
+            paddingHorizontal: 20,
+            paddingVertical: 16,
             marginTop: -50,
             paddingTop: 50,
             justifyContent: 'space-between',
             //   flexDirection: 'row',
             borderColor: '#DDDDDD',
+            gap: 8,
           }}>
           {passwordQuestions.map((item, index) => {
             return (
@@ -27,7 +30,7 @@ function PasswordQuestionComp({ selfCheckQuestion, setSelfCheckQuestion }) {
                   setSelfCheckQuestion(item)
                   setIsOpen(false)
                 }}>
-                <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }} key={index}>
+                <Text style={{ color: 'black', fontSize: 16, fontWeight: '400' }} key={index}>
                   {item}
                 </Text>
               </TouchableOpacity>
@@ -47,14 +50,17 @@ function PasswordQuestionComp({ selfCheckQuestion, setSelfCheckQuestion }) {
           backgroundColor: 'white',
           borderWidth: 1,
           borderRadius: 50,
-          padding: 20,
+          paddingHorizontal: 20,
+          paddingVertical: 16,
           justifyContent: 'space-between',
           flexDirection: 'row',
           borderColor: '#DDDDDD',
+          alignItems: 'center',
         }}>
-        <Text style={{ fontSize: 14, color: selfCheckQuestion !== '' ? 'black' : 'gray', fontWeight: '400' }}>
+        <Text style={{ fontSize: 16, color: selfCheckQuestion !== '' ? 'black' : 'gray', fontWeight: '400' }}>
           {selfCheckQuestion !== '' ? selfCheckQuestion : '본인 확인 질문 선택...'}
         </Text>
+        <IonIcons name={isOpen ? 'chevron-up' : 'chevron-down'} size={24} color={'gray'} />
       </TouchableOpacity>
       {isOpen && <OpenedQuestionComp />}
     </View>

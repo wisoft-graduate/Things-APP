@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { ActivityIndicator, FlatList, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 
 import CardComp from './components/CardComp'
 import SearchTextInputComp from './components/SearchTextInputComp'
@@ -11,21 +11,37 @@ function SearchScreen() {
   const [selectedTab, setSelectedTab] = useState<string>('좋아요 순')
   const [data, setData] = useState([])
   const [isShowSearchList, setIsShowSearchList] = useState(false)
+  const [page, setPage] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const flatListRef = useRef<FlatList>(null)
+
+  const upScroll = () => {
+    flatListRef.current?.scrollToOffset({ animated: false, offset: 0 })
+  }
 
   async function fetchQuotation() {
+    setIsLoading(true)
     const isLike = selectedTab === '좋아요 순'
-    const res = await ThingsAPI.getQuotationRank(isLike)
+
+    const res = await ThingsAPI.getQuotationRank(isLike, page)
     if (res) {
-      setData(res?.data?.quotationRanks)
-      // push('BottomTabNavigator', { screen: 'Home' })
+      setData([...data, ...res?.data?.quotationRanks])
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
     if (!isShowSearchList) {
       fetchQuotation()
     }
-  }, [isShowSearchList, selectedTab])
+  }, [isShowSearchList, selectedTab, page])
+
+  useEffect(() => {
+    upScroll()
+    setPage(0)
+    setData([])
+  }, [selectedTab])
 
   return (
     <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
@@ -46,23 +62,29 @@ function SearchScreen() {
             })}
           </View>
         )}
-        <FlatList
-          contentContainerStyle={{
-            flexDirection: 'row',
-            marginTop: 15,
-            gap: 10,
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
-          data={data}
-          ListEmptyComponent={
-            <View style={{ marginTop: 40 }}>
-              <Text style={{ fontSize: 16, color: 'gray', fontWeight: '400' }}>결과가 없습니다.</Text>
-            </View>
-          }
-          renderItem={({ item, index }) => <CardComp item={item} index={index} />}
-          ListFooterComponent={() => <View style={{ height: 150 }} />}
-        />
+        {isLoading ? (
+          <ActivityIndicator style={{ marginTop: 100 }} />
+        ) : (
+          <FlatList
+            ref={flatListRef}
+            contentContainerStyle={{
+              marginTop: 15,
+              justifyContent: 'space-between',
+              marginRight: 10,
+            }}
+            numColumns={2}
+            data={data}
+            ListEmptyComponent={
+              <View style={{ marginTop: 40 }}>
+                <Text style={{ fontSize: 16, color: 'gray', fontWeight: '400' }}>결과가 없습니다.</Text>
+              </View>
+            }
+            renderItem={({ item, index }) => <CardComp item={item} index={index} />}
+            onEndReached={() => setPage(page + 1)}
+            onEndReachedThreshold={0.6}
+            ListFooterComponent={() => <View style={{ height: 150 }} />}
+          />
+        )}
       </View>
     </SafeAreaView>
   )

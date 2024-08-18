@@ -54,10 +54,18 @@ function SignUpScreen() {
             </View>
             <View>
               <TextInputComp placeholder="닉네임..." value={nicknameValue} setValue={setNicknameValue} />
+              <Text style={{ fontSize: 13, color: 'gray', fontWeight: '400', marginTop: -10, marginLeft: 20 }}>
+                ※ 영어(대문자,소문자), 한글, 숫자만 가능
+              </Text>
               {/* <Text style={{ color: Colors.error, marginLeft: 20 }}>* 중복되는 닉네임입니다.</Text> */}
             </View>
-            <TextInputComp placeholder="비밀번호..." value={passwordValue} setValue={setPasswordValue} />
-            <TextInputComp placeholder="비밀번호 확인..." value={passwordCheckValue} setValue={setPasswordCheckValue} />
+            <TextInputComp placeholder="비밀번호..." value={passwordValue} setValue={setPasswordValue} isPassword />
+            <TextInputComp
+              placeholder="비밀번호 확인..."
+              value={passwordCheckValue}
+              setValue={setPasswordCheckValue}
+              isPassword
+            />
             <PasswordQuestionComp selfCheckQuestion={selfCheckQuestion} setSelfCheckQuestion={setSelfCheckQuestion} />
             <TextInputComp placeholder="본인 확인 답변 입력..." value={selfCheckValue} setValue={setSelfCheckValue} />
           </View>
@@ -70,7 +78,7 @@ function SignUpScreen() {
               passwordValue === '' ||
               passwordCheckValue === '' ||
               selfCheckQuestion === '' ||
-              selfCheckValue
+              selfCheckValue === ''
             ) {
               Alert.alert('모든 정보가 입력되어있는지 확인해주세요', '', [{}])
               return
