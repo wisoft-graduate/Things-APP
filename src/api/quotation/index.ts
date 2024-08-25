@@ -71,3 +71,16 @@ export async function getQuotationId({ id }) {
     console.error('@common > api > quotation > getQuotationRank\n', error)
   }
 }
+
+/**
+ * @description POST: 명언 공유
+ */
+export async function getQuotationIdShare({ id }) {
+  try {
+    const response = await thingsAxios.post<GetUserWalletResponse>(`/quotations/${id}/share`)
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > quotation > getQuotationIdShare\n', error)
+  }
+}

@@ -7,6 +7,7 @@ import ProfileEditScreen from '../../../screens/Mypage/templates/ProfileEditScre
 import PushScreen from '../../../screens/Mypage/templates/PushScreen'
 import PasswordChangeScreen from '../../../screens/Mypage/templates/PasswordChangeScreen'
 import WithdrawalScreen from '../../../screens/Mypage/templates/WithdrawalScreen'
+import DetailScreen from '../../../screens/Detail'
 
 const UserStack = createNativeStackNavigator()
 
@@ -32,6 +33,7 @@ function UserNavigator() {
         <UserStack.Screen name="Push" component={PushScreen} options={{ headerTitle: '알림' }} />
         <UserStack.Screen name="PasswordChange" component={PasswordChangeScreen} options={{ headerTitle: '' }} />
         <UserStack.Screen name="Withdrawal" component={WithdrawalScreen} options={{ headerTitle: '회원탈퇴' }} />
+        <UserStack.Screen name="Detail" component={DetailScreen} options={{ headerShown: false }} />
       </UserStack.Group>
     </UserStack.Navigator>
   )

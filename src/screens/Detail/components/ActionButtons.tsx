@@ -15,15 +15,27 @@ function ActionButtons({ item }) {
   const [isShowBookmarkModal, setIsShowBookmarkModal] = useState(false)
   const [likeId, setLikeId] = useState('')
   const [likeCount, setLikeCount] = useState(item?.likeCount)
+  const [shareCount, setShareCount] = useState(item?.shareCount)
 
   const { data: userData } = userInfoStore()
 
   const showModal = () => setIsShowBookmarkModal(true)
 
-  function onShareNews() {
-    Share.share({
-      message: 'wow@!',
-    })
+  async function onShareNews() {
+    try {
+      const result = await Share.share({
+        message: 'wow',
+      })
+      // 공유 액션을 실행했을경우
+      if (result.action === Share.sharedAction) {
+        const response = await ThingsAPI.getQuotationIdShare({ id: item?.id })
+        if (response) {
+          setShareCount(shareCount + 1)
+        }
+      }
+    } catch (error: any) {
+      return
+    }
   }
 
   async function fetchLike() {
@@ -82,7 +94,7 @@ function ActionButtons({ item }) {
           fetchLike()
         }}>
         <Icons name="heart-outline" size={24} color={isLike ? 'red' : 'white'} />
-        <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{likeCount}</Text>
+        <Text style={{ color: 'white', fontSize: 13, fontWeight: '500' }}>{likeCount}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
@@ -90,13 +102,13 @@ function ActionButtons({ item }) {
         }}
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}>
         <ChatIconSvg />
-        <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{item?.commentCount}</Text>
+        <Text style={{ color: 'white', fontSize: 13, fontWeight: '500' }}>{item?.commentCount}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => onShareNews()}
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}>
         <Icons name="share-outline" size={24} color={'white'} />
-        <Text style={{ color: 'white', fontSize: 10, fontWeight: '400' }}>{item?.shareCount}</Text>
+        <Text style={{ color: 'white', fontSize: 13, fontWeight: '500' }}>{shareCount}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={{ gap: 2, justifyContent: 'center', alignItems: 'center' }}
@@ -115,7 +127,7 @@ function ActionButtons({ item }) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 25,
+    gap: 20,
     justifyContent: 'center',
   },
 })

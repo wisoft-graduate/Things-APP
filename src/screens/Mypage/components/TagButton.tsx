@@ -3,9 +3,10 @@ import { Text, TouchableOpacity } from 'react-native'
 
 import { Colors } from '../../../@common/styles/colors'
 
-function TagButton({ item }) {
+function TagButton({ item, selectedFolder, setSelectedFolder }) {
   return (
     <TouchableOpacity
+      onPress={() => setSelectedFolder(item.id)}
       style={{
         marginRight: 10,
         paddingHorizontal: 10,
@@ -13,7 +14,7 @@ function TagButton({ item }) {
         flexDirection: 'row',
         borderWidth: 1,
         borderRadius: 10,
-        backgroundColor: '#CBF14720',
+        backgroundColor: selectedFolder === item.id ? '#CBF14780' : 'white',
         borderColor: Colors.green,
         gap: 4,
       }}>

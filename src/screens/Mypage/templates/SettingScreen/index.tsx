@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Ionicons'
 
 import SwitchComp from '../../../../@common/components/SwitchComp'
@@ -15,11 +15,21 @@ function SettingScreen() {
   const [isPushSwitchOn, setIsPushSwitchOn] = useState(false)
 
   async function userLogout() {
-    remove()
-    await accessTokenStorage.remove()
-    await refreshTokenStorage.remove()
-    await userIdStorage.remove()
-    navigation.navigate('Detail')
+    Alert.alert('로그아웃 하시겠어요?', '', [
+      {
+        text: '취소',
+      },
+      {
+        text: '로그아웃',
+        onPress: async () => {
+          remove()
+          await accessTokenStorage.remove()
+          await refreshTokenStorage.remove()
+          await userIdStorage.remove()
+          navigation.navigate('Detail')
+        },
+      },
+    ])
   }
 
   return (

@@ -4,9 +4,11 @@ import Icons from 'react-native-vector-icons/Ionicons'
 
 import { Colors } from '../styles/colors'
 import { TextInputCompProps } from '../types'
+import { userInfoStore } from '../../zustand/User'
 
 function TextInputComp(props: TextInputCompProps) {
   const { placeholder, check, value, setValue, isPassword } = props
+  const { data } = userInfoStore()
 
   const inputStyle = () => {
     switch (check) {
@@ -39,6 +41,7 @@ function TextInputComp(props: TextInputCompProps) {
         placeholder={placeholder}
         placeholderTextColor={'#767676'}
         secureTextEntry={isPassword}
+        defaultValue={data.nickname}
       />
       <Icons name={iconName()} size={20} color={check === 'error' ? Colors.error : Colors.green} />
     </View>

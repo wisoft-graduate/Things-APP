@@ -47,3 +47,17 @@ export async function deleteLikes(params: DeleteLikesParams) {
     console.error('@common > api > likes > deleteLikes\n', error)
   }
 }
+
+/**
+ * @description GET: 좋아요
+ */
+export async function getLikesUserId(params: { userId: string }) {
+  const { userId } = params
+  try {
+    const response = await thingsAxios.get<LikesResponse>(`/likes/${userId}`)
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > likes > getLikesUserId\n', error)
+  }
+}

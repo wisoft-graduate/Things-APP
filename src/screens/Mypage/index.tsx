@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
-import { Dimensions, Image, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Image, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Fontisto'
 import SetIcons from 'react-native-vector-icons/AntDesign'
 import PenIcons from 'react-native-vector-icons/Octicons'
 import { useNavigation } from '@react-navigation/native'
 import IonIcons from 'react-native-vector-icons/Ionicons'
 
+import * as ThingsAPI from '../../api'
 import { Colors } from '../../@common/styles/colors'
 import TagButton from './components/TagButton'
 import { userInfoStore } from '../../zustand/User'
 import useGetBookmark from '../../screens/Detail/hooks/useGetBookmark'
 import useGetUserInfo from '../../@common/hooks/useGetUserInfo'
-
-const { width } = Dimensions.get('window')
+import OpinionCard from './components/OpinionCard'
 
 function MyScreen() {
   const navigation = useNavigation()
@@ -22,6 +22,16 @@ function MyScreen() {
   const { data: bookmarkData } = useGetBookmark()
 
   const bookmarkList = bookmarkData?.data
+  const [opinions, setOpinions] = useState([])
+  const [selectedFolder, setSelectedFolder] = useState('like')
+
+  async function getOpinions() {
+    const response = await ThingsAPI.getLikesUserId({ userId: data.id })
+    if (response) {
+      console.log(response.data)
+      setOpinions(response.data)
+    }
+  }
 
   useEffect(() => {
     if (data.id === '') {
@@ -32,6 +42,7 @@ function MyScreen() {
   }, [data])
 
   useEffect(() => {
+    getOpinions()
     getUser()
   }, [])
 
@@ -94,102 +105,33 @@ function MyScreen() {
           </View>
         </View>
         <View style={{ marginLeft: 35, gap: 12, marginTop: 40 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, width: '80%' }}>
             <Image style={{ width: 27, height: 25 }} source={require('../../assets/images/like_writer.png')} />
             <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>{data?.favoriteAuthor ?? '-'}</Text>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, width: '80%' }}>
             <Image style={{ width: 27, height: 24 }} source={require('../../assets/images/like_quote.png')} />
             <Text style={{ fontSize: 12, fontWeight: '400', color: 'black' }}>{data?.favoriteQuotation ?? '-'}</Text>
           </View>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingVertical: 30, marginLeft: 15 }}>
+          <TagButton
+            item={{
+              id: 'like',
+              icon: '❤️',
+              name: '좋아요',
+            }}
+            selectedFolder={selectedFolder}
+            setSelectedFolder={setSelectedFolder}
+          />
           {bookmarkList?.map(item => (
-            <TagButton item={item} />
+            <TagButton item={item} selectedFolder={selectedFolder} setSelectedFolder={setSelectedFolder} />
           ))}
         </ScrollView>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
-          <View
-            style={{
-              width: width / 3,
-              height: width / 3,
-              backgroundColor: 'lightgray',
-              borderWidth: 1,
-              borderColor: '#1F1F25',
-            }}
-          />
+          {opinions?.map((item, index) => (
+            <OpinionCard item={item} index={index} />
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>

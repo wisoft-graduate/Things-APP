@@ -27,6 +27,7 @@
     "lodash-es": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.73.4",
+    "react-native-actions-sheet": "^0.9.7",
     "react-native-config": "^1.5.1",
     "react-native-device-info": "^10.13.1",
     "react-native-dotenv": "^3.4.11",

@@ -23,7 +23,7 @@ function PasswordQuestionComp({ selfCheckQuestion, setSelfCheckQuestion }) {
             borderColor: '#DDDDDD',
             gap: 8,
           }}>
-          {passwordQuestions.map((item, index) => {
+          {passwordQuestions?.map((item, index) => {
             return (
               <TouchableOpacity
                 onPress={() => {

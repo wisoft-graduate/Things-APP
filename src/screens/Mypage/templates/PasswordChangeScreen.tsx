@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { Colors } from '../../../@common/styles/colors'
@@ -6,6 +6,8 @@ import PasswordQuestionComp from '../../../@common/components/PasswordQuestionCo
 import ButtonComp from '../../../@common/components/ButtonComp'
 
 function PasswordChangeScreen() {
+  const [selfCheckQuestion, setSelfCheckQuestion] = useState('')
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white', padding: 40, justifyContent: 'space-between' }}>
       <View>
@@ -16,7 +18,7 @@ function PasswordChangeScreen() {
         <View style={{ backgroundColor: Colors.green, width: 110, height: 20, marginTop: -60 }} />
       </View>
       <View style={{ gap: 100 }}>
-        <PasswordQuestionComp />
+        <PasswordQuestionComp selfCheckQuestion={selfCheckQuestion} setSelfCheckQuestion={setSelfCheckQuestion} />
         <View />
       </View>
       <ButtonComp text="확인" />
