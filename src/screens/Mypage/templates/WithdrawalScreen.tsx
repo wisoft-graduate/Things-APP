@@ -6,18 +6,23 @@ import * as ThingsAPI from '../../../api/index'
 import { Colors } from '../../../@common/styles/colors'
 import QuoteMarkSvg from '../../../assets/svgs/QuoteMarkSvg'
 import { userInfoStore } from '../../../zustand/User'
+import { useNavigation } from '@react-navigation/native'
+import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../../storage/secure'
 
 function WithdrawalScreen() {
   const [passwordValue, setPasswordValue] = useState<string>('')
   const [isAgree, setIsAgree] = useState<boolean>(false)
   const [isAbleWithdrawal, setIsAbleWithdrawal] = useState<boolean>(false)
-  const { data } = userInfoStore()
+  const { data, remove } = userInfoStore()
+  const navigation = useNavigation()
 
   async function onDeleteUser() {
-    const response = ThingsAPI.deleteUsers({ id: data.id })
-    if (response) {
-      console.log(response)
-    }
+    await ThingsAPI.deleteUsers({ id: data.id })
+    remove()
+    await accessTokenStorage.remove()
+    await refreshTokenStorage.remove()
+    await userIdStorage.remove()
+    navigation.navigate('Detail')
   }
 
   useEffect(() => {
