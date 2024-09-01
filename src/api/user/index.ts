@@ -9,7 +9,7 @@ import {
   UserResponse,
 } from './types'
 import thingsAxios from '../../api/thingsAxios'
-import { refreshTokenStorage } from '../../storage/secure'
+import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../storage/secure'
 
 /**
  * @description POST: 회원가입
@@ -72,11 +72,40 @@ export async function getUserIdMyPage({ id }) {
 export async function putUsers(params: PutUserParams) {
   const { id } = params
   try {
-    const response = await thingsAxios.put<PutUserResponse>(`/users/${id}`, params)
+    const accessToken = await accessTokenStorage.get()
+    const response = await thingsAxios.put<PutUserResponse>(`/users/${id}`, params, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
     const data = _.get(response, ['data', 'data'])
     return { data }
   } catch (error) {
     console.error('@common > api > user > putUsers\n', error.response)
+    if (error.response.status === 401) {
+      fetchPostReissue()
+    }
+  }
+}
+
+/**
+ * @description DELETE: 유저 정보
+ */
+export async function deleteUsers({ id }: { id: string }) {
+  try {
+    const accessToken = await accessTokenStorage.get()
+    const response = await thingsAxios.delete<PutUserResponse>(`/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > user > deleteUsers\n', error.response)
+    if (error.response.status === 401) {
+      fetchPostReissue()
+    }
   }
 }
 
@@ -84,18 +113,34 @@ export async function putUsers(params: PutUserParams) {
  * @description POST: 토큰 재발급
  */
 export async function postUserRefreshToken() {
-  const refreshToken = await refreshTokenStorage.get()
-
   try {
-    const response = await thingsAxios.post<PutUserResponse>(`/users/refresh-token`, {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
+    const refreshToken = await refreshTokenStorage.get()
+    const response = await thingsAxios.post<PutUserResponse>(
+      `/users/refresh-token`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
       },
-    })
+    )
     const data = _.get(response, ['data', 'data'])
     return { data }
   } catch (error) {
     console.error('@common > api > user > postUserRefreshToken\n', error)
+    // await removeToken()
     return error?.status
   }
+}
+
+// 토큰 재발행 함수
+async function fetchPostReissue() {
+  await postUserRefreshToken()
+}
+
+// 토큰 재발행 함수
+async function removeToken() {
+  await userIdStorage.remove()
+  await accessTokenStorage.remove()
+  await refreshTokenStorage.remove()
 }

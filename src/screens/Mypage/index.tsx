@@ -94,7 +94,12 @@ function MyScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 50, alignItems: 'center', marginTop: 30 }}>
-          <IonIcons name="person-circle-outline" size={80} color={'lightgray'} />
+          {data?.profilePath ? (
+            <Image source={{ uri: data?.profilePath }} style={{ width: 80, height: 80, borderRadius: 100 }} />
+          ) : (
+            <IonIcons name="person-circle-outline" size={80} color={'lightgray'} />
+          )}
+
           <View style={{ alignItems: 'center', gap: 6 }}>
             <Text style={{ fontSize: 16, fontWeight: '500', color: 'black' }}>{data?.likeQuotationCount ?? 0}</Text>
             <Text style={{ fontSize: 14, fontWeight: '400', color: 'black' }}>좋아요</Text>

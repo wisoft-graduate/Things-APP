@@ -44,10 +44,6 @@ export interface PostUserWalletParams {
   walletAddress: string
 }
 
-export interface DeleteUserWalletParams {
-  userWalletId: number
-}
-
 export interface PostSignUpParams {
   id: string
   password: string

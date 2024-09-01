@@ -67,8 +67,12 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>현재 위치한 지역별로 언어값과 추천뉴스를 띄우기 위해 위치정보를 사용합니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>프로필 사진을 설정하기 위해서는 카메라 권한이 필요합니다.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>맞춤형 광고 및 서비스를 제공하기 위해 '허용'을 눌러주세요. '허용'하더라도 개인정보는 유출되지 않습니다.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

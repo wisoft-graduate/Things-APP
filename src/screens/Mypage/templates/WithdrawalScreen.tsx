@@ -2,13 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Icons from 'react-native-vector-icons/Ionicons'
 
+import * as ThingsAPI from '../../../api/index'
 import { Colors } from '../../../@common/styles/colors'
 import QuoteMarkSvg from '../../../assets/svgs/QuoteMarkSvg'
+import { userInfoStore } from '../../../zustand/User'
 
 function WithdrawalScreen() {
   const [passwordValue, setPasswordValue] = useState<string>('')
   const [isAgree, setIsAgree] = useState<boolean>(false)
   const [isAbleWithdrawal, setIsAbleWithdrawal] = useState<boolean>(false)
+  const { data } = userInfoStore()
+
+  async function onDeleteUser() {
+    const response = ThingsAPI.deleteUsers({ id: data.id })
+    if (response) {
+      console.log(response)
+    }
+  }
 
   useEffect(() => {
     if (isAgree && passwordValue.length > 0) {
@@ -81,6 +91,7 @@ function WithdrawalScreen() {
           />
         </View>
         <TouchableOpacity
+          onPress={() => onDeleteUser()}
           activeOpacity={isAbleWithdrawal ? 0.7 : 1}
           style={{
             height: 55,

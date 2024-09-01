@@ -1,17 +1,6 @@
 import _ from 'lodash-es'
 
-import {
-  DeleteUserWalletParams,
-  DeleteUserWalletResponse,
-  GetUserWalletResponse,
-  PostSignInParams,
-  PostSignInResponse,
-  PostSignUpParams,
-  PostUserWalletParams,
-  PostUserWalletResponse,
-  PutUserWalletParams,
-  PutUserWalletResponse,
-} from './types'
+import { GetUserWalletResponse } from './types'
 import thingsAxios from '../../api/thingsAxios'
 
 /**

@@ -24,12 +24,14 @@ function SignInScreen(props) {
 
   async function onSignIn() {
     const res = await ThingsAPI.postSignIn({ id: idValue, password: passwordValue })
+    console.log(res?.data)
     if (res?.data?.accessToken) {
       bottomSheetModalRef.current?.dismiss()
       setIsOpenedModal(false)
       setAxiosHeaders(res?.data?.accessToken)
+
       await accessTokenStorage.set(res?.data?.accessToken)
-      await refreshTokenStorage.set(res?.data?.accessToken)
+      await refreshTokenStorage.set(res?.data?.refreshToken)
       await userIdStorage.set(idValue)
       updateId(idValue)
       push('BottomTabNavigator', { screen: 'Home' })

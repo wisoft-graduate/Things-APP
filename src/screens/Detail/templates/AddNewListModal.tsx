@@ -45,7 +45,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                 }}
                 style={{
                   backgroundColor: '#F3F3F3',
-                  width: 30,
+                  width: 50,
                   paddingVertical: 10,
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -61,7 +61,9 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: 50,
+                  paddingLeft: 20,
                 }}
+                maxLength={10}
                 value={value}
                 onChange={event => setValue(event.nativeEvent.text)}
                 placeholder="새 리스트 명을 입력해 주세요"
@@ -104,6 +106,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
               </View>
             </View>
             <TouchableOpacity
+              disabled={value.length === 0 || icon === ''}
               onPress={() => {
                 setValue('')
                 setIsShowAddListModal(false)
@@ -117,7 +120,7 @@ function AddNewListModal({ isShowAddListModal, setIsShowAddListModal, setIsShowB
               }}
               style={{
                 marginTop: 40,
-                backgroundColor: '#F3F3F3',
+                backgroundColor: value.length > 0 && icon !== '' ? Colors.green : '#F3F3F3',
                 width: 280,
                 paddingVertical: 20,
                 alignItems: 'center',

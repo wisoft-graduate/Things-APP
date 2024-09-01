@@ -11,8 +11,6 @@ export interface PostSignInResponse extends BaseAPIResponseSchema {
 
 export interface PostUserWalletResponse extends BaseAPIResponseSchema {}
 
-export interface DeleteUserWalletResponse extends BaseAPIResponseSchema {}
-
 export interface PutUserWalletResponse extends BaseAPIResponseSchema {}
 
 /** @description Response 내 data 객체 타입 */
@@ -43,10 +41,6 @@ export interface PutUserWalletParams {
 export interface PostUserWalletParams {
   walletPlatform: 'METAMASK'
   walletAddress: string
-}
-
-export interface DeleteUserWalletParams {
-  userWalletId: number
 }
 
 export interface PostSignUpParams {

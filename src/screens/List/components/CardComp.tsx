@@ -29,7 +29,6 @@ function CardComp({ item, refetch }) {
     }
     const res = await ThingsAPI.deleteBookmark(params)
     if (res) {
-      console.log(res)
       setShowOption(false)
       refetch()
     }

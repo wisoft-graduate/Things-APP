@@ -64,8 +64,8 @@ function ActionButtons({ item }) {
       quotationId: item?.id,
     }
     const response = await ThingsAPI.getLikes(params)
-    if (response?.data?.id) {
-      setLikeId(response?.data?.id)
+    if (response?.data[0]?.id) {
+      setLikeId(response?.data[0]?.id)
       setIsLike(true)
     }
   }
@@ -75,7 +75,7 @@ function ActionButtons({ item }) {
       return
     }
     getLike()
-  }, [item?.id])
+  }, [item?.id, userData.id])
 
   return (
     <View style={styles.container}>
