@@ -8,6 +8,7 @@ import QuoteMarkSvg from '../../../assets/svgs/QuoteMarkSvg'
 import { userInfoStore } from '../../../zustand/User'
 import { useNavigation } from '@react-navigation/native'
 import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../../storage/secure'
+import { removeAxiosHeaders } from '../../../api/thingsAxios'
 
 function WithdrawalScreen() {
   const [passwordValue, setPasswordValue] = useState<string>('')
@@ -17,12 +18,15 @@ function WithdrawalScreen() {
   const navigation = useNavigation()
 
   async function onDeleteUser() {
-    await ThingsAPI.deleteUsers({ id: data.id })
-    remove()
-    await accessTokenStorage.remove()
-    await refreshTokenStorage.remove()
-    await userIdStorage.remove()
-    navigation.navigate('Detail')
+    if (isAbleWithdrawal) {
+      await ThingsAPI.deleteUsers({ id: data.id })
+      remove()
+      removeAxiosHeaders()
+      await accessTokenStorage.remove()
+      await refreshTokenStorage.remove()
+      await userIdStorage.remove()
+      navigation.navigate('Detail')
+    }
   }
 
   useEffect(() => {

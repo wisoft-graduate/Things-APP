@@ -6,6 +6,7 @@ import SwitchComp from '../../../../@common/components/SwitchComp'
 import { useNavigation } from '@react-navigation/native'
 import { userInfoStore } from '../../../../zustand/User'
 import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../../../storage/secure'
+import { removeAxiosHeaders } from '../../../../api/thingsAxios'
 
 function SettingScreen() {
   const navigation = useNavigation()
@@ -23,6 +24,7 @@ function SettingScreen() {
         text: '로그아웃',
         onPress: async () => {
           remove()
+          removeAxiosHeaders()
           await accessTokenStorage.remove()
           await refreshTokenStorage.remove()
           await userIdStorage.remove()

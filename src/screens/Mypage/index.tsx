@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Image, SafeAreaView, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import Icons from 'react-native-vector-icons/Fontisto'
 import SetIcons from 'react-native-vector-icons/AntDesign'
 import PenIcons from 'react-native-vector-icons/Octicons'
@@ -24,12 +33,14 @@ function MyScreen() {
   const bookmarkList = bookmarkData?.data
   const [opinions, setOpinions] = useState([])
   const [selectedFolder, setSelectedFolder] = useState('like')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function getOpinions() {
+    setIsLoading(true)
     const response = await ThingsAPI.getLikesUserId({ userId: data.id })
     if (response) {
-      console.log(response.data)
       setOpinions(response.data)
+      setIsLoading(false)
     }
   }
 
@@ -45,6 +56,14 @@ function MyScreen() {
     getOpinions()
     getUser()
   }, [])
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <ActivityIndicator style={{ marginTop: 50 }} />
+      </SafeAreaView>
+    )
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -133,7 +152,7 @@ function MyScreen() {
             <TagButton item={item} selectedFolder={selectedFolder} setSelectedFolder={setSelectedFolder} />
           ))}
         </ScrollView>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', borderTopWidth: 1, borderTopColor: 'lightgray' }}>
           {opinions?.map((item, index) => (
             <OpinionCard item={item} index={index} />
           ))}

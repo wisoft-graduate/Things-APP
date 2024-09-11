@@ -24,7 +24,6 @@ function SignInScreen(props) {
 
   async function onSignIn() {
     const res = await ThingsAPI.postSignIn({ id: idValue, password: passwordValue })
-    console.log(res?.data)
     if (res?.data?.accessToken) {
       bottomSheetModalRef.current?.dismiss()
       setIsOpenedModal(false)
@@ -71,7 +70,9 @@ function SignInScreen(props) {
                 onSignIn()
               }}
             />
-            <TouchableOpacity style={{ alignItems: 'center' }}>
+            <TouchableOpacity
+              style={{ alignItems: 'center' }}
+              onPress={() => push('PasswordChange', { isNotLogin: true })}>
               <Text style={{ fontWeight: '400', fontSize: 15, color: 'gray', textDecorationLine: 'underline' }}>
                 비밀번호 찾기
               </Text>

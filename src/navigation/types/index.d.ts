@@ -16,6 +16,7 @@ export type RootStackParamList = {
   Comments: undefined
   SignHome: undefined
   SignUp: undefined
+  PasswordChange: { isNotLogin?: boolean }
 }
 
 export type BottomTabParamList = {

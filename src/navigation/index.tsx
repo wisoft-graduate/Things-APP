@@ -7,6 +7,7 @@ import { RootStackParamList } from './types'
 import SignHomeScreen from '../screens/SignIn'
 import SignUpScreen from '../screens/SignIn/templates/SignUpScreen'
 import CommentsScreen from '../screens/Detail/templates/CommentsScreen'
+import PasswordChangeScreen from '../screens/Mypage/templates/PasswordChangeScreen'
 
 const navigationRef = createNavigationContainerRef()
 
@@ -24,6 +25,7 @@ function RootNavigator() {
       {/* <Root.Screen name="Error" component={ErrorScreen} /> */}
       <Root.Screen name="SignHome" component={SignHomeScreen} />
       <Root.Screen name="SignUp" component={SignUpScreen} />
+      <Root.Screen name="PasswordChange" component={PasswordChangeScreen} options={{ headerTitle: '' }} />
       <Root.Screen
         name="Comments"
         component={CommentsScreen}

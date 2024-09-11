@@ -56,6 +56,11 @@ export interface PostSignInParams {
   id: string
   password: string
 }
+export interface PostUserVerificationParams {
+  id: string
+  identityVerificationQuestion: string
+  identityVerificationAnswer: string
+}
 export interface PutUserParams {
   id: string
   nickname: string
@@ -66,4 +71,11 @@ export interface PutUserParams {
   commentAlarm: boolean
   identityVerificationQuestion: string
   identityVerificationAnswer: string
+}
+
+export interface PatchUserParams {
+  id: string
+  password: string
+  passwordConfirm: string
+  newToken: string
 }

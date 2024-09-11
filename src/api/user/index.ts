@@ -1,9 +1,11 @@
 import _ from 'lodash-es'
 
 import {
+  PatchUserParams,
   PostSignInParams,
   PostSignInResponse,
   PostSignUpParams,
+  PostUserVerificationParams,
   PutUserParams,
   PutUserResponse,
   UserResponse,
@@ -22,6 +24,20 @@ export async function postSignUp(params: PostSignUpParams) {
     return { data, reasonPhrase }
   } catch (error) {
     console.error('@common > api > user > postSignUp\n', error?.response)
+    return error?.response?.data
+  }
+}
+
+/**
+ * @description POST: 본인확인 질문 검증
+ */
+export async function postUsersIdentityVerification(params: PostUserVerificationParams) {
+  try {
+    const response = await thingsAxios.post<PostSignInResponse>(`/users/identity-verification`, params)
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > user > postUsersIdentityVerification\n', error?.response)
     return error?.response?.data
   }
 }
@@ -85,6 +101,31 @@ export async function putUsers(params: PutUserParams) {
     if (error.response.status === 401) {
       fetchPostReissue()
     }
+  }
+}
+
+/**
+ * @description PATCH : 비밀번호 변경
+ */
+export async function patchUsersResetPassword(params: PatchUserParams) {
+  const { id, password, passwordConfirm, newToken } = params
+  try {
+    const response = await thingsAxios.patch<PutUserResponse>(
+      `/users/${id}/reset-password`,
+      {
+        password,
+        passwordConfirm,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${newToken}`,
+        },
+      },
+    )
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > user > patchUsersResetPassword\n', error.response)
   }
 }
 

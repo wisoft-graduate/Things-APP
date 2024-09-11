@@ -2,6 +2,7 @@ import { userInfoStore } from '../../zustand/User'
 import * as ThingsAPI from '../../api/index'
 import { useEffect } from 'react'
 import { accessTokenStorage, refreshTokenStorage, userIdStorage } from '../../storage/secure'
+import { removeAxiosHeaders } from '../../api/thingsAxios'
 
 function useTokenReissue() {
   const { remove, data } = userInfoStore()
@@ -19,6 +20,7 @@ function useTokenReissue() {
       return
     } else {
       remove()
+      removeAxiosHeaders()
       await accessTokenStorage.remove()
       await refreshTokenStorage.remove()
       await userIdStorage.remove()
