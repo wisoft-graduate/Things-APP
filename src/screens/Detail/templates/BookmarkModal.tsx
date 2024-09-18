@@ -22,11 +22,11 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
   })
 
   function BookmarkItem({ item }) {
+    const quotationsIds = item?.quotations.map(item => item.id)
     const params = {
       id: item?.id,
       name: item?.name,
-      quotationIds: [item?.id, ...item?.quotations],
-      quotationIds: [item?.id],
+      quotationIds: [quotationId, ...quotationsIds],
       visibility: item?.visibility,
       icon: item?.icon,
     }
@@ -101,6 +101,7 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
             </ScrollView>
             <TouchableOpacity
               onPress={() => {
+                console.log(selectedItem)
                 if (selectedItem.id !== '') {
                   putBookmark(selectedItem)
                 }

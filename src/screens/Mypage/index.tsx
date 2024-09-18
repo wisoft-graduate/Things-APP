@@ -35,6 +35,16 @@ function MyScreen() {
   const [selectedFolder, setSelectedFolder] = useState('like')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  async function getBookmarkOpinions() {
+    setIsLoading(true)
+    const response = await ThingsAPI.getBookmark({ userId: data.id })
+    if (response) {
+      const filteredResponse = response.data.filter(item => item.id === selectedFolder)
+      setOpinions(filteredResponse[0].quotations)
+      setIsLoading(false)
+    }
+  }
+
   async function getOpinions() {
     setIsLoading(true)
     const response = await ThingsAPI.getLikesUserId({ userId: data.id })
@@ -56,6 +66,14 @@ function MyScreen() {
     getOpinions()
     getUser()
   }, [])
+
+  useEffect(() => {
+    if (selectedFolder !== 'like') {
+      getBookmarkOpinions()
+    } else {
+      getOpinions()
+    }
+  }, [selectedFolder])
 
   if (isLoading) {
     return (

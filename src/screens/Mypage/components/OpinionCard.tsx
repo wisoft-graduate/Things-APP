@@ -25,7 +25,7 @@ function OpinionCard({ item, index }) {
       <Text
         style={{ position: 'absolute', zIndex: 10, fontSize: 15, fontWeight: '500', color: 'black' }}
         numberOfLines={3}>
-        {item.quotation?.content}
+        {item.quotation?.content ?? item?.content}
       </Text>
       <Image
         style={{ width: width / 3, height: width / 3, opacity: 0.3 }}
