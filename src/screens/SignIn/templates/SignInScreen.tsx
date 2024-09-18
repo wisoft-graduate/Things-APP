@@ -19,7 +19,8 @@ function SignInScreen(props) {
 
   const [idValue, setIdValue] = useState<string>('')
   const [passwordValue, setPasswordValue] = useState<string>('')
-
+  const [isIdChecked, setIsIdChecked] = useState(false)
+  const [isPasswordChecked, setIsPasswordChecked] = useState(false)
   const snapPoints = useMemo(() => ['70%'], [])
 
   async function onSignIn() {
@@ -62,9 +63,23 @@ function SignInScreen(props) {
             <Text style={{ fontSize: 28, color: 'black' }}>LOGIN</Text>
           </View>
           <View style={{ gap: 20 }}>
-            <TextInputComp placeholder="로그인 아이디..." value={idValue} setValue={setIdValue} />
-            <TextInputComp placeholder="패스워드..." value={passwordValue} setValue={setPasswordValue} isPassword />
+            <TextInputComp
+              placeholder="로그인 아이디..."
+              type="id"
+              value={idValue}
+              setValue={setIdValue}
+              setIsChecked={setIsIdChecked}
+            />
+            <TextInputComp
+              placeholder="패스워드..."
+              type="password"
+              value={passwordValue}
+              setValue={setPasswordValue}
+              isPassword
+              setIsChecked={setIsPasswordChecked}
+            />
             <ButtonComp
+              isDisabled={!isIdChecked || !isPasswordChecked}
               text={'로그인'}
               func={() => {
                 onSignIn()

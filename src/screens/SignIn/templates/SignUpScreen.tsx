@@ -20,6 +20,10 @@ function SignUpScreen() {
   const [selfCheckQuestion, setSelfCheckQuestion] = useState('')
   const [selfCheckValue, setSelfCheckValue] = useState('')
 
+  const [isIdChecked, setIsIdChecked] = useState(false)
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false)
+  const [isPasswordChecked, setIsPasswordChecked] = useState(false)
+
   async function onSignup() {
     const params = {
       id: idValue,
@@ -49,19 +53,35 @@ function SignUpScreen() {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingVertical: 20 }}>
           <View style={{ justifyContent: 'space-between', gap: 10 }}>
             <View>
-              <TextInputComp placeholder="로그인 아이디..." value={idValue} setValue={setIdValue} />
+              <TextInputComp
+                placeholder="로그인 아이디..."
+                type="id"
+                value={idValue}
+                setValue={setIdValue}
+                setIsChecked={setIsIdChecked}
+              />
               {/* <Text style={{ color: Colors.green, marginLeft: 20 }}>* 사용가능한 아이디입니다.</Text> */}
             </View>
             <View>
-              <TextInputComp placeholder="닉네임..." value={nicknameValue} setValue={setNicknameValue} />
-              <Text style={{ fontSize: 13, color: 'gray', fontWeight: '400', marginTop: -10, marginLeft: 20 }}>
-                ※ 영어(대문자,소문자), 한글, 숫자만 가능
-              </Text>
-              {/* <Text style={{ color: Colors.error, marginLeft: 20 }}>* 중복되는 닉네임입니다.</Text> */}
+              <TextInputComp
+                placeholder="닉네임..."
+                type="nickname"
+                value={nicknameValue}
+                setValue={setNicknameValue}
+                setIsChecked={setIsNicknameChecked}
+              />
             </View>
-            <TextInputComp placeholder="비밀번호..." value={passwordValue} setValue={setPasswordValue} isPassword />
+            <TextInputComp
+              placeholder="비밀번호..."
+              type="password"
+              value={passwordValue}
+              setValue={setPasswordValue}
+              setIsChecked={setIsPasswordChecked}
+              isPassword
+            />
             <TextInputComp
               placeholder="비밀번호 확인..."
+              type="password"
               value={passwordCheckValue}
               setValue={setPasswordCheckValue}
               isPassword
@@ -71,20 +91,20 @@ function SignUpScreen() {
           </View>
         </ScrollView>
         <ButtonComp
+          isDisabled={
+            !isIdChecked ||
+            !isNicknameChecked ||
+            !isPasswordChecked ||
+            selfCheckValue.length === 0 ||
+            passwordCheckValue.length === 0
+          }
           func={() => {
-            if (
-              idValue === '' ||
-              nicknameValue === '' ||
-              passwordValue === '' ||
-              passwordCheckValue === '' ||
-              selfCheckQuestion === '' ||
-              selfCheckValue === ''
-            ) {
-              Alert.alert('모든 정보가 입력되어있는지 확인해주세요', '', [{}])
-              return
-            }
             if (passwordValue !== passwordCheckValue) {
               Alert.alert('비밀번호와 비밀번호 확인란이 동일하지 않습니다.', '', [{}])
+              return
+            }
+            if (selfCheckValue.length === 0) {
+              Alert.alert('본인확인 답변을 입력해주세요.', '', [{}])
               return
             }
             onSignup()

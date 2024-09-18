@@ -5,7 +5,7 @@ import { Colors } from '../styles/colors'
 import { ButtonCompProps } from '../types'
 
 function ButtonComp(props: ButtonCompProps) {
-  const { isHomeButton, func, text } = props
+  const { isHomeButton, func, text, isDisabled } = props
 
   if (isHomeButton) {
     return (
@@ -26,7 +26,15 @@ function ButtonComp(props: ButtonCompProps) {
   }
 
   return (
-    <TouchableOpacity onPress={func} style={styles.container}>
+    <TouchableOpacity
+      onPress={func}
+      style={[
+        styles.container,
+        {
+          backgroundColor: isDisabled ? 'lightgray' : Colors.green,
+        },
+      ]}
+      disabled={isDisabled}>
       <Text style={{ color: 'black', fontSize: 14, fontWeight: '400' }}>{text}</Text>
     </TouchableOpacity>
   )
@@ -35,7 +43,6 @@ function ButtonComp(props: ButtonCompProps) {
 const styles = StyleSheet.create({
   // @ts-ignore
   container: {
-    backgroundColor: Colors.green,
     borderRadius: 50,
     padding: 20,
     alignItems: 'center',

@@ -72,6 +72,21 @@ export async function getUserId({ id }) {
 /**
  * @description GET: 유저 정보
  */
+export async function getUsers(params) {
+  try {
+    const response = await thingsAxios.get<UserResponse>(`/users`, {
+      params,
+    })
+    const data = _.get(response, ['data', 'data'])
+    return { data }
+  } catch (error) {
+    console.error('@common > api > user > getUsers\n', error)
+  }
+}
+
+/**
+ * @description GET: 유저 정보
+ */
 export async function getUserIdMyPage({ id }) {
   try {
     const response = await thingsAxios.get<UserResponse>(`/users/${id}/my-page`)

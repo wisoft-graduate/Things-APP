@@ -95,8 +95,8 @@ function BookmarkModal({ isShowBookmarkModal, setIsShowBookmarkModal, quotationI
                   <Text style={{ fontSize: 14, color: 'gray', fontWeight: '400' }}>새로 생성해주세요.</Text>
                 </View>
               )}
-              {bookmarkList?.map(item => (
-                <BookmarkItem item={item} />
+              {bookmarkList?.map((item, idx) => (
+                <BookmarkItem item={item} key={idx} />
               ))}
             </ScrollView>
             <TouchableOpacity
