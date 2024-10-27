@@ -75,7 +75,7 @@
 	<string>맞춤형 광고 및 서비스를 제공하기 위해 '허용'을 눌러주세요. '허용'하더라도 개인정보는 유출되지 않습니다.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

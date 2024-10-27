@@ -92,8 +92,6 @@ function ProfileEditScreen() {
   }
 
   async function onEditProfile() {
-    // let params
-    console.log('newImageData', newImageData, value)
     if (newImageData !== '') {
       const params = {
         id: data?.id,
@@ -101,21 +99,22 @@ function ProfileEditScreen() {
         profileImageBase64: newImageData,
       }
       const response = await ThingsAPI.putUsers(params)
-      // if (response) {
-      //   getUser()
-      // }
+
+      if (response) {
+        getUser()
+      }
     } else {
       const params = {
         id: data?.id,
         nickname: value,
       }
       const response = await ThingsAPI.putUsers(params)
-      // if (response) {
-      //   getUser()
-      // }
+      if (response) {
+        getUser()
+      }
     }
 
-    // goBack()
+    goBack()
     return
   }
 

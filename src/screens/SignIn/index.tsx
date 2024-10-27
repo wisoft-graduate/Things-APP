@@ -54,8 +54,8 @@ function SignHomeScreen() {
             }}>
             <View />
             <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontSize: 18, color: Colors.white }}>안녕하세요!</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+              <Text style={{ fontSize: 20, color: Colors.white }}>안녕하세요!</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 6 }}>
                 <Text
                   style={{
                     fontSize: 42,
@@ -63,7 +63,7 @@ function SignHomeScreen() {
                   }}>
                   Things
                 </Text>
-                <Text style={{ fontSize: 18, color: Colors.white }}>입니다.</Text>
+                <Text style={{ fontSize: 20, color: Colors.white, marginBottom: 8 }}>입니다.</Text>
               </View>
             </View>
             <View style={{ width: '100%', gap: 20, marginBottom: 40 }}>
